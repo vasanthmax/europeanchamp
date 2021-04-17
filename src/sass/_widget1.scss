@@ -1,0 +1,51 @@
+.content-table {
+  border-collapse: collapse;
+  width: 80%;
+  border: 2px solid #929292;
+  margin: auto;
+
+  thead {
+    th {
+      background: #1c0e52;
+      color: #ffffff;
+      text-align: center;
+      border: 1px solid #929292;
+      padding: 5px;
+    }
+    .sport {
+      text-align: left;
+      font-weight: bold;
+    }
+    .venue {
+      text-align: left;
+      font-weight: bold;
+    }
+  }
+  tbody {
+    color: #1c0e52;
+    text-align: center;
+    border: 1px solid #929292;
+    tr {
+      th {
+        padding: 5px;
+        border: 1px solid #929292;
+
+        img {
+          height: 30px;
+          text-align: center;
+        }
+      }
+
+      .eventName {
+        text-align: left;
+      }
+      .place {
+        font-weight: lighter;
+        text-align: left;
+      }
+    }
+    tr:nth-of-type(even) {
+      background: #e1e2e0;
+    }
+  }
+}
