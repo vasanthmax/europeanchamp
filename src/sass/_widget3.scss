@@ -1,0 +1,61 @@
+.widget3 {
+  .date-event-table {
+    border-collapse: collapse;
+    width: 80%;
+    border: 2px solid #929292;
+    margin: auto;
+    thead {
+      th {
+        background: #1c0e52;
+        color: #ffffff;
+        text-align: center;
+        border: 1px solid #929292;
+        padding: 5px;
+        text-align: left;
+      }
+      .addTo {
+        display: flex;
+        align-items: center;
+        img {
+          height: 20px;
+          margin-left: 10px;
+        }
+      }
+    }
+    tbody {
+      color: #1c0e52;
+      border: 1px solid #929292;
+
+      tr {
+        text-align: center;
+        .event {
+          text-align: left;
+        }
+        .venue {
+          text-align: left;
+        }
+        .sport {
+          text-align: left;
+        }
+
+        th {
+          padding: 5px;
+          border: 1px solid #929292;
+
+          img {
+            height: 30px;
+            text-align: center;
+          }
+        }
+        .calendar {
+          img {
+            height: 20px;
+          }
+        }
+      }
+      tr:nth-of-type(even) {
+        background: #e1e2e0;
+      }
+    }
+  }
+}

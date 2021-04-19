@@ -5,7 +5,7 @@ import 'react-dropdown/style.css';
 
 const Widget2 = () => {
   const data = [...eventValues];
-  let sport = 'Volleyball';
+  let sport = 'Athletics';
   const filteredValues = data.filter((ch) => ch.sport === sport);
   const [filteredData, setFilteredData] = useState(filteredValues);
 
@@ -48,7 +48,13 @@ const Widget2 = () => {
     }
   }
   let colorp = `${sportColors[sport]}`;
-  const dropdownlist = ['Men', 'Women', 'Mixed', 'Team'];
+  const dropdownlist = [];
+  for (let i = 0; i < filteredValues.length; i++) {
+    const gender = filteredValues[i].gender;
+    if (dropdownlist.indexOf(gender) === -1) {
+      dropdownlist.push(gender);
+    }
+  }
   const dropdown2 = ['Yes', 'No', 'All'];
   const [gender, setGender] = useState('No Filter Selected');
   const [medal, setMedal] = useState('No Filter Selected');
