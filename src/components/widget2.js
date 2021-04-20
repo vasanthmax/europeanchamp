@@ -5,7 +5,7 @@ import 'react-dropdown/style.css';
 
 const Widget2 = () => {
   const data = [...eventValues];
-  let sport = 'Athletics';
+  let sport = 'Rowing';
   const filteredValues = data.filter((ch) => ch.sport === sport);
   const [filteredData, setFilteredData] = useState(filteredValues);
 
@@ -41,7 +41,10 @@ const Widget2 = () => {
     Triathlon: '#FECB00',
   };
   for (let i = 0; i < filteredData.length; i++) {
-    const date = new Date(filteredData[i].start).getDate();
+    const date = new Date(filteredData[i].start).toLocaleString('UTC', {
+      timeZone: 'CET',
+      day: '2-digit',
+    });
 
     if (sportDates.indexOf(date) === -1) {
       sportDates.push(date);
@@ -233,8 +236,11 @@ const Widget2 = () => {
         <tbody>
           {filteredData.map((ch) => {
             const items = [];
-            const date = new Date(ch.start).getDate();
-
+            const date = new Date(ch.start).toLocaleString('UTC', {
+              timeZone: 'CET',
+              day: '2-digit',
+            });
+            console.log(date);
             for (let i = 0; i < 11; i++) {
               if (date - 11 == i && ch.medal == 'Yes') {
                 items.push(
@@ -278,7 +284,8 @@ const Widget2 = () => {
             }
 
             const month = new Date(ch.start)
-              .toLocaleString('default', {
+              .toLocaleString('UTC', {
+                timeZone: 'CET',
                 month: 'short',
                 day: '2-digit',
                 weekday: 'short',

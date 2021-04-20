@@ -10,7 +10,11 @@ const Widget3 = () => {
 
   const data = [...eventValues];
   const filterByDate = data.filter(
-    (ch) => new Date(ch.start).getDate().toString() === '13'
+    (ch) =>
+      new Date(ch.start).getDate().toLocaleString('UTC', {
+        timeZone: 'CET',
+        day: '2-digit',
+      }) === '13'
   );
   const [filteredData, setFilteredData] = useState(filterByDate);
 
@@ -55,14 +59,13 @@ const Widget3 = () => {
               MedalEvent = baseUrlDot;
             }
 
-            const startTime = new Date(sport.start).toLocaleTimeString(
-              'default',
-              {
-                hour: '2-digit',
-                minute: '2-digit',
-              }
-            );
-            const endTime = new Date(sport.end).toLocaleTimeString('default', {
+            const startTime = new Date(sport.start).toLocaleString('UTC', {
+              timeZone: 'CET',
+              hour: '2-digit',
+              minute: '2-digit',
+            });
+            const endTime = new Date(sport.end).toLocaleString('UTC', {
+              timeZone: 'CET',
               hour: '2-digit',
               minute: '2-digit',
             });
