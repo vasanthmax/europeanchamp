@@ -1,6 +1,4 @@
 import React from 'react';
-import orangeMedal from '../ec_athletics_medalicon_rgb.png';
-import orangeDot from '../ec_athletics_dot_rgb.png';
 
 const Widget1 = () => {
   const chart = [
@@ -182,11 +180,7 @@ const Widget1 = () => {
                   // console.log(l);
                   // mi.appendChild(l);
 
-                  items.push(
-                    <th>
-                      <img src={orangeMedal} />
-                    </th>
-                  );
+                  items.push(<th></th>);
                 } else {
                   items.push(<th></th>);
                 }
