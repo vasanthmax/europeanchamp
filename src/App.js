@@ -5,7 +5,7 @@ import Widget3 from './components/widget3';
 function App() {
   return (
     <div className='App'>
-      <Widget3></Widget3>
+      <Widget1></Widget1>
     </div>
   );
 }
