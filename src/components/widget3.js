@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import eventValues from '../assets/table.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { Link } from 'react-router-dom';
 
 const Widget3 = () => {
   const calendar =
@@ -15,7 +16,9 @@ const Widget3 = () => {
   const leftArrow =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_left.svg';
   const data = [...eventValues];
-  const [fDate, setfDate] = useState(11);
+  const [fDate, setfDate] = useState(
+    parseInt(window.location.pathname.split('/').pop())
+  );
 
   const filterByDate = data.filter(
     (ch) =>
@@ -46,7 +49,7 @@ const Widget3 = () => {
   const [medal, setMedal] = useState('No Filter Selected');
   const [sport, setSport] = useState('No Filter Selected');
   for (let i = 0; i < filterByDate.length; i++) {
-    const sports = filterByDate[i].sport;
+    const sports = filterByDate[i].discipline;
     if (sportList.indexOf(sports) === -1) {
       sportList.push(sports);
     }
@@ -406,7 +409,15 @@ const Widget3 = () => {
             // console.log(startTime);
             return (
               <tr>
-                <th className='sport'>{ch.sport}</th>
+                <th className='sport'>
+                  {' '}
+                  <Link
+                    to={`/sport/${ch.sport}`}
+                    style={{ textDecoration: 'none', color: '#1c0e52' }}
+                  >
+                    {ch.discipline}
+                  </Link>
+                </th>
                 <th className='event'>{ch.event}</th>
                 <th className='time'>
                   {startTime} - {endTime}
@@ -485,7 +496,12 @@ const Widget3 = () => {
 
                 <tr>
                   <th>
-                    {startTime} - {endTime}
+                    <Link
+                      to={`/sport/${ch.sport}`}
+                      style={{ textDecoration: 'none', color: '#1c0e52' }}
+                    >
+                      {startTime} - {endTime}
+                    </Link>
                   </th>
                   <th className='medal'>
                     <img src={MedalEvent} alt='' />

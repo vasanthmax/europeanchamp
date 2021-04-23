@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import eventValues from '../assets/widget1.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { Link } from 'react-router-dom';
 
 const Widget1 = () => {
   const data = [...eventValues];
@@ -52,53 +53,116 @@ const Widget1 = () => {
           <th className='sport'>SPORT / DISCIPLINE</th>
           <th className='venue'>VENUE</th>
           <th>
-            <h2>11</h2>
-            <p>Thu</p>
+            <Link
+              to='/date/11'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>11</h2>
+              <p>Thu</p>
+            </Link>
           </th>
           <th>
-            <h2>12</h2>
-            <p>Fri</p>
+            <Link
+              to='/date/12'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>12</h2>
+              <p>Fri</p>
+            </Link>
           </th>
           <th>
-            <h2>13</h2>
-            <p>Sat</p>
+            <Link
+              to='/date/13'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>13</h2>
+              <p>Sat</p>
+            </Link>
           </th>
           <th>
-            <h2>14</h2>
-            <p>Sun</p>
+            <Link
+              to='/date/14'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>14</h2>
+              <p>Sun</p>
+            </Link>
           </th>
           <th>
-            <h2>15</h2>
-            <p>Mon</p>
+            <Link
+              to='/date/15'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>15</h2>
+              <p>Mon</p>
+            </Link>
           </th>
           <th>
-            <h2>16</h2>
-            <p>Tue</p>
+            <Link
+              to='/date/16'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>16</h2>
+              <p>Tue</p>
+            </Link>
           </th>
           <th>
-            <h2>17</h2>
-            <p>Wed</p>
+            <Link
+              to='/date/17'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>17</h2>
+              <p>Wed</p>
+            </Link>
           </th>
           <th>
-            <h2>18</h2>
-            <p>Thu</p>
+            <Link
+              to='/date/18'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>18</h2>
+              <p>Thu</p>
+            </Link>
           </th>
           <th>
-            <h2>19</h2>
-            <p>Fri</p>
+            <Link
+              to='/date/19'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>19</h2>
+              <p>Fri</p>
+            </Link>
+          </th>
+
+          <th>
+            <Link
+              to='/date/20'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>20</h2>
+              <p>Sat</p>
+            </Link>
           </th>
           <th>
-            <h2>20</h2>
-            <p>Sat</p>
-          </th>
-          <th>
-            <h2>21</h2>
-            <p>Sun</p>
+            <Link
+              to='/date/21'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>21</h2>
+              <p>Sun</p>
+            </Link>
           </th>
         </thead>
         <tbody>
           <tr>
-            <th className='sport'>Athletics</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Athletics'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Athletics
+              </Link>
+            </th>
             <th className='venue'>Olympiapark</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -154,7 +218,14 @@ const Widget1 = () => {
             </th>
           </tr>
           <tr>
-            <th className='sport'>Athletics Marathon</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Athletics'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Athletics Marathon
+              </Link>
+            </th>
             <th className='venue'>City of Munich</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -174,7 +245,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Athletics Race Walk</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Athletics'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Athletics Race Walk
+              </Link>
+            </th>
             <th className='venue'>City of Munich</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -199,7 +277,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Beach Volleyball</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Volleyball'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Beach Volleyball
+              </Link>
+            </th>
             <th className='venue'>Konigsplatz</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -249,7 +334,15 @@ const Widget1 = () => {
             </th>
           </tr>
           <tr>
-            <th className='sport'>Canoe Sprint</th>
+            <th className='sport'>
+              {' '}
+              <Link
+                to='/sport/Canoe'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Canoe Sprint
+              </Link>
+            </th>
             <th className='venue'>Munich Olympic Regatta Centre</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -284,7 +377,15 @@ const Widget1 = () => {
             </th>
           </tr>
           <tr>
-            <th className='sport'>Cycling Track</th>
+            <th className='sport'>
+              {' '}
+              <Link
+                to='/sport/Cycling'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Cycling Track
+              </Link>
+            </th>
             <th className='venue'>Messe Munchen</th>
             <th className='11'>
               <img
@@ -329,7 +430,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Cycling Road</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Cycling'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Cycling Road
+              </Link>
+            </th>
             <th className='venue'>City of Munich</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -359,7 +467,14 @@ const Widget1 = () => {
             </th>
           </tr>
           <tr>
-            <th className='sport'>Cycling Mountain Bike</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Cycling'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Cycling Mountain Bike
+              </Link>
+            </th>
             <th className='venue'>Olympiapark</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -384,7 +499,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Cycling BMX</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Cycling'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Cycling BMX
+              </Link>
+            </th>
             <th className='venue'>Olympiapark</th>
             <th className='11'>
               {' '}
@@ -416,7 +538,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Artistic Gymnastics</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Gymnastics'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Artistic Gymnastics
+              </Link>
+            </th>
             <th className='venue'>Olympiapark</th>
             <th className='11'>
               {' '}
@@ -462,7 +591,14 @@ const Widget1 = () => {
             </th>
           </tr>
           <tr>
-            <th className='sport'>Rowing</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Rowing'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Rowing
+              </Link>
+            </th>
             <th className='venue'>Munich Olympic Regatta Centre</th>
             <th className='11'>
               <img
@@ -497,7 +633,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Sport Climbing</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Sport Climbing'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Sport Climbing
+              </Link>
+            </th>
             <th className='venue'>Konigsplatz</th>
             <th className='11'>
               <img
@@ -547,7 +690,14 @@ const Widget1 = () => {
             <th className='21'></th>
           </tr>
           <tr>
-            <th className='sport'>Table Tennis</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Table Tennis'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Table Tennis
+              </Link>
+            </th>
             <th className='venue'>Rudi-Sedlmayer-Halle</th>
             <th className='11'></th>
             <th className='12'></th>
@@ -607,7 +757,14 @@ const Widget1 = () => {
             </th>
           </tr>
           <tr>
-            <th className='sport'>Triathlon</th>
+            <th className='sport'>
+              <Link
+                to='/sport/Triathlon'
+                style={{ textDecoration: 'none', color: '#1c0e52' }}
+              >
+                Triathlon
+              </Link>
+            </th>
             <th className='venue'>Olympiapark</th>
             <th className='11'></th>
             <th className='12'>
@@ -642,7 +799,14 @@ const Widget1 = () => {
         <thead>
           <th>SPORT / DISCIPLINE</th>
           <th>VENUE</th>
-          <th className='date'>{date} AUG</th>
+          <th className='date'>
+            <Link
+              to={`/date/${date}`}
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              {date} AUG
+            </Link>
+          </th>
         </thead>
         <tbody>
           {filteredValues.map((vs) => {
@@ -675,7 +839,14 @@ const Widget1 = () => {
 
             return (
               <tr>
-                <th className='event'>{vs.discipline}</th>
+                <th className='event'>
+                  <Link
+                    to={`/sport/${vs.sport}`}
+                    style={{ textDecoration: 'none', color: '#1c0e52' }}
+                  >
+                    {vs.discipline}
+                  </Link>
+                </th>
                 <th className='venue'>{vs.venue}</th>
                 <th className='marker'>
                   <img src={MedalEvent} alt='' />

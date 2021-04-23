@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import eventValues from '../assets/table.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { Link } from 'react-router-dom';
 
 const Widget2 = () => {
   const data = [...eventValues];
-  let sport = 'Rowing';
+  let sport = window.location.pathname.split('/').pop().replace('%20', ' ');
+  console.log(sport);
   const filteredValues = data.filter((ch) => ch.sport === sport);
   const [filteredData, setFilteredData] = useState(filteredValues);
 
@@ -189,48 +191,104 @@ const Widget2 = () => {
         <thead>
           <th className='sport'>EVENT NAME</th>
           <th>
-            <h2>11</h2>
-            <p>Thu</p>
+            <Link
+              to='/date/11'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>11</h2>
+              <p>Thu</p>
+            </Link>
           </th>
           <th>
-            <h2>12</h2>
-            <p>Fri</p>
+            <Link
+              to='/date/12'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>12</h2>
+              <p>Fri</p>
+            </Link>
           </th>
           <th>
-            <h2>13</h2>
-            <p>Sat</p>
+            <Link
+              to='/date/13'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>13</h2>
+              <p>Sat</p>
+            </Link>
           </th>
           <th>
-            <h2>14</h2>
-            <p>Sun</p>
+            <Link
+              to='/date/14'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>14</h2>
+              <p>Sun</p>
+            </Link>
           </th>
           <th>
-            <h2>15</h2>
-            <p>Mon</p>
+            <Link
+              to='/date/15'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>15</h2>
+              <p>Mon</p>
+            </Link>
           </th>
           <th>
-            <h2>16</h2>
-            <p>Tue</p>
+            <Link
+              to='/date/16'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>16</h2>
+              <p>Tue</p>
+            </Link>
           </th>
           <th>
-            <h2>17</h2>
-            <p>Wed</p>
+            <Link
+              to='/date/17'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>17</h2>
+              <p>Wed</p>
+            </Link>
           </th>
           <th>
-            <h2>18</h2>
-            <p>Thu</p>
+            <Link
+              to='/date/18'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>18</h2>
+              <p>Thu</p>
+            </Link>
           </th>
           <th>
-            <h2>19</h2>
-            <p>Fri</p>
+            <Link
+              to='/date/19'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>19</h2>
+              <p>Fri</p>
+            </Link>
+          </th>
+
+          <th>
+            <Link
+              to='/date/20'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>20</h2>
+              <p>Sat</p>
+            </Link>
           </th>
           <th>
-            <h2>20</h2>
-            <p>Sat</p>
-          </th>
-          <th>
-            <h2>21</h2>
-            <p>Sun</p>
+            <Link
+              to='/date/21'
+              style={{ textDecoration: 'none', color: '#ffffff' }}
+            >
+              <h2>21</h2>
+              <p>Sun</p>
+            </Link>
           </th>
         </thead>
         <tbody>
@@ -292,11 +350,20 @@ const Widget2 = () => {
               })
               .toString();
             console.log(month.replace(',', ''));
-
+            const date = new Date(ch.start).toLocaleString('UTC', {
+              day: '2-digit',
+            });
             return (
               <tr>
                 <th className='event-name'>{ch.event}</th>
-                <th className='date'>{month.replace(',', '')}</th>
+                <th className='date'>
+                  <Link
+                    to={`/date/${date}`}
+                    style={{ textDecoration: 'none', color: '#1c0e52' }}
+                  >
+                    {month.replace(',', '')}
+                  </Link>
+                </th>
                 <th className='medals'>
                   <img src={medal} alt='' />
                 </th>
