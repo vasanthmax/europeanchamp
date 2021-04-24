@@ -52,6 +52,8 @@
           }
         }
         .calendar {
+          cursor: pointer;
+
           img {
             height: 20px;
           }
@@ -364,6 +366,8 @@
         }
         .calendar {
           text-align: center;
+          cursor: pointer;
+
           img {
             height: 20px;
           }

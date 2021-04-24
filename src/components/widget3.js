@@ -3,6 +3,8 @@ import eventValues from '../assets/table.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
+import { createEvent } from 'ics';
+import { writeFileSync, writeFile } from 'fs';
 
 const Widget3 = () => {
   const calendar =
@@ -19,7 +21,6 @@ const Widget3 = () => {
   const [fDate, setfDate] = useState(
     parseInt(window.location.pathname.split('/').pop())
   );
-
   const filterByDate = data.filter(
     (ch) =>
       parseInt(
@@ -240,6 +241,58 @@ const Widget3 = () => {
   useEffect(() => {
     genderFilter();
   }, [gender, medal, sport]);
+  const add = (
+    type,
+    sport,
+    discipline,
+    classes,
+    session,
+    gender,
+    phase,
+    event,
+    start,
+    end,
+    venue,
+    day,
+    medal
+  ) => {
+    const year = new Date(start).toLocaleString('UTC', {
+      year: 'numeric',
+    });
+    const month = new Date(start).toLocaleString('UTC', {
+      month: 'numeric',
+    });
+    const dayTime = new Date(start).toLocaleString('UTC', {
+      day: 'numeric',
+    });
+    const endTime = new Date(end).toLocaleString('UTC', {
+      day: 'numeric',
+    });
+    console.log(year);
+    const eventCalen = {
+      start: [year, month, dayTime],
+      end: [year, month, endTime],
+      title: sport,
+      description: `event:${event} - discipline:${discipline} - gender:${gender} - medal:${medal} - phase:${phase}`,
+      location: venue,
+    };
+    createEvent(eventCalen, (error, value) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      console.log(value);
+      let blob = new Blob([value], { type: 'text/calendar;charset=utf-8' });
+
+      if (/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {
+        // Open/Save link in IE and Edge
+        window.navigator.msSaveBlob(blob, 'download.ics');
+      } else {
+        // Open/Save link in Modern Browsers
+        window.open(encodeURI('data:text/calendar;charset=utf8,' + value));
+      }
+    });
+  };
   return (
     <div className='widget3'>
       <div className='header'>
@@ -427,7 +480,27 @@ const Widget3 = () => {
                 </th>
                 <th className='venue'>{ch.venue}</th>
                 <th className='calendar'>
-                  <img src={calendarPlus} alt='' />
+                  <img
+                    src={calendarPlus}
+                    alt=''
+                    onClick={() => {
+                      add(
+                        ch.type,
+                        ch.sport,
+                        ch.discipline,
+                        ch.class,
+                        ch.session,
+                        ch.gender,
+                        ch.phase,
+                        ch.event,
+                        ch.start,
+                        ch.end,
+                        ch.venue,
+                        ch.day,
+                        ch.medal
+                      );
+                    }}
+                  />
                 </th>
               </tr>
             );
@@ -508,7 +581,27 @@ const Widget3 = () => {
                   </th>
                   <th className='venue'>{ch.venue}</th>
                   <th className='calendar'>
-                    <img src={calendarPlus} alt='' />
+                    <img
+                      src={calendarPlus}
+                      alt=''
+                      onClick={() => {
+                        add(
+                          ch.type,
+                          ch.sport,
+                          ch.discipline,
+                          ch.class,
+                          ch.session,
+                          ch.gender,
+                          ch.phase,
+                          ch.event,
+                          ch.start,
+                          ch.end,
+                          ch.venue,
+                          ch.day,
+                          ch.medal
+                        );
+                      }}
+                    />
                   </th>
                 </tr>
               </div>
