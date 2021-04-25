@@ -38,13 +38,19 @@ const Widget3 = () => {
   );
   const sportList = [];
   const dropdownlist = [];
-  for (let i = 0; i < filterByDate.length; i++) {
-    const gender = filterByDate[i].gender;
+  for (let i = 0; i < filteredData.length; i++) {
+    const gender = filteredData[i].gender;
     if (dropdownlist.indexOf(gender) === -1) {
       dropdownlist.push(gender);
     }
   }
-  const dropdown2 = ['Yes', 'No'];
+  const dropdown2 = [];
+  for (let i = 0; i < filteredData.length; i++) {
+    const medal = filteredData[i].medal;
+    if (dropdown2.indexOf(medal) === -1) {
+      dropdown2.push(medal);
+    }
+  }
   const [gender, setGender] = useState('No Filter Selected');
   const [medal, setMedal] = useState('No Filter Selected');
   const [sport, setSport] = useState('No Filter Selected');
@@ -56,7 +62,7 @@ const Widget3 = () => {
   }
   const sportListUpdate = () => {
     for (let i = 0; i < filterByDate.length; i++) {
-      const sports = filterByDate[i].sport;
+      const sports = filterByDate[i].discipline;
       if (sportList.indexOf(sports) === -1) {
         sportList.push(sports);
       }
@@ -101,23 +107,24 @@ const Widget3 = () => {
   const genderFilter = () => {
     if (
       gender === 'No Filter Selected' &&
-      medal == 'No Filter Selected' &&
-      sport == 'No Filter Selected'
+      medal === 'No Filter Selected' &&
+      sport === 'No Filter Selected'
     ) {
       const filterbyUser = setFilteredData(filterByDate);
     }
     if (gender === 'No Filter Selected' && medal == 'No Filter Selected') {
-      const filterbyUser = filterByDate.filter((ch) => ch.sport === sport);
+      const filterbyUser = filterByDate.filter((ch) => ch.discipline === sport);
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`10 is not Available`);
       } else {
         setFilteredData(filterbyUser);
+        console.log('data acquired');
       }
     }
     if (medal === 'No Filter Selected' && sport === 'No Filter Selected') {
       const filterbyUser = filterByDate.filter((ch) => ch.gender === gender);
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`9 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
@@ -126,7 +133,7 @@ const Widget3 = () => {
     if (gender === 'No Filter Selected' && sport === 'No Filter Selected') {
       const filterbyUser = filterByDate.filter((ch) => ch.medal === medal);
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`8 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
@@ -134,10 +141,10 @@ const Widget3 = () => {
 
     if (gender === 'No Filter Selected') {
       const filterbyUser = filterByDate.filter(
-        (ch) => ch.sport == sport && ch.medal == medal
+        (ch) => ch.discipline == sport && ch.medal == medal
       );
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`7 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
@@ -145,10 +152,10 @@ const Widget3 = () => {
 
     if (medal === 'No Filter Selected') {
       const filterbyUser = filterByDate.filter(
-        (ch) => ch.gender === gender && ch.sport == sport
+        (ch) => ch.gender === gender && ch.discipline == sport
       );
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`6 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
@@ -159,47 +166,61 @@ const Widget3 = () => {
         (ch) => ch.gender == gender && ch.medal === medal
       );
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`5 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
     }
 
-    if (gender && sport && medal) {
+    if (
+      gender !== 'No Filter Selected' &&
+      sport !== 'No Filter Selected' &&
+      medal !== 'No Filter Selected'
+    ) {
       const filterbyUser = filterByDate.filter(
-        (ch) => ch.gender == gender && ch.sport == sport && ch.medal == medal
+        (ch) =>
+          ch.gender == gender && ch.discipline == sport && ch.medal == medal
       );
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`4 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
     } else if (gender && sport && medal) {
       const filterbyUser = filterByDate.filter(
-        (ch) => ch.gender == gender && ch.sport == sport
+        (ch) => ch.gender == gender && ch.discipline == sport
       );
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`3 is not Available`);
       } else {
         setFilteredData(filterbyUser);
       }
     } else if (sport && medal) {
       const filterbyUser = filterByDate.filter(
-        (ch) => ch.sport == sport && ch.medal == medal
+        (ch) => ch.discipline == sport && ch.medal == medal
       );
       if (filterbyUser.length === 0) {
-        console.log(`${gender} is not Available`);
+        console.log(`2 is not Available`);
       } else if (gender && medal) {
         const filterbyUser = filterByDate.filter(
           (ch) => ch.gender == gender && ch.medal == medal
         );
         if (filterbyUser.length === 0) {
-          console.log(`${gender} is not Available`);
+          console.log(`1 is not Available`);
         }
       } else {
         setFilteredData(filterbyUser);
       }
     }
+
+    // if (sport) {
+    //   const filterbyUser = filterByDate.filter((ch) => ch.discipline === sport);
+    //   if (filterbyUser.length === 0) {
+    //     console.log(`${gender} is not Available`);
+    //   } else {
+    //     setFilteredData(filterbyUser);
+    //   }
+    // }
 
     // if (gender && sport && medal == 'All') {
     //   const filterbyUser = filterByDate.filter(
