@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import eventValues from '../assets/widget1.json';
+import eventValues from '../assets/table.json';
+import tableValues from '../assets/widget1.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 
 const Widget1 = () => {
-  const data = [...eventValues];
+  const data = [...tableValues];
+  const dataFile = [...eventValues];
   const [date, setdate] = useState(11);
   const [selectedFilters, setSelectedFilters] = useState();
 
   const filteredValues = data.filter((ch) => ch.date == date);
   const [filteredData, setFilteredData] = useState([...filteredValues]);
-  console.log(filteredData);
   const dropdown2 = [
     'Thu 11 Aug',
     'Fri 12 Aug',
@@ -25,6 +26,103 @@ const Widget1 = () => {
     'Sat 20 Aug',
     'Sun 21 Aug',
   ];
+  const sportDis = [];
+  for (let i = 0; i < dataFile.length; i++) {
+    const sport = dataFile[i].sport;
+    const discipline = dataFile[i].discipline;
+    const venue = dataFile[i].venue;
+
+    if (
+      sportDis.findIndex(
+        (ch) => ch.sport === sport && ch.discipline === discipline
+      ) === -1
+    ) {
+      sportDis.push({
+        sport: sport,
+        discipline: discipline,
+        venue: venue,
+        info: [
+          {
+            date: '11',
+            medal: 'na',
+          },
+          {
+            date: '12',
+            medal: 'na',
+          },
+          {
+            date: '13',
+            medal: 'na',
+          },
+          {
+            date: '14',
+            medal: 'na',
+          },
+          {
+            date: '15',
+            medal: 'na',
+          },
+          {
+            date: '16',
+            medal: 'na',
+          },
+          {
+            date: '17',
+            medal: 'na',
+          },
+          {
+            date: '18',
+            medal: 'na',
+          },
+          {
+            date: '19',
+            medal: 'na',
+          },
+          {
+            date: '20',
+            medal: 'na',
+          },
+          {
+            date: '21',
+            medal: 'na',
+          },
+        ],
+      });
+    }
+  }
+
+  for (let i = 0; i < dataFile.length; i++) {
+    const sport = dataFile[i].sport;
+    const discipline = dataFile[i].discipline;
+    const medal = dataFile[i].medal;
+    const date = new Date(dataFile[i].start).toLocaleString('GMT', {
+      timeZone: 'CET',
+      day: 'numeric',
+    });
+    const index = sportDis.findIndex(
+      (ch) => ch.sport === sport && ch.discipline === discipline
+    );
+
+    if (
+      sportDis[index]['info']
+        .map((ch) => {
+          return ch.date;
+        })
+        .indexOf(date) === -1
+    ) {
+    }
+
+    sportDis[index].info.forEach((ele) => {
+      if (ele.date === date && medal == 'Yes') {
+        ele.medal = 'Yes';
+      } else if (ele.date === date && ele.medal == 'na') {
+        ele.medal = 'No';
+      }
+    });
+  }
+
+  console.log(sportDis);
+
   return (
     <div className='widget1'>
       <div className='month'>
@@ -154,645 +252,83 @@ const Widget1 = () => {
           </th>
         </thead>
         <tbody>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Athletics'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Athletics
-              </Link>
-            </th>
-            <th className='venue'>Olympiapark</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'></th>
-            <th className='15'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='16'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='17'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='18'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='19'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='20'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Athletics'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Athletics Marathon
-              </Link>
-            </th>
-            <th className='venue'>City of Munich</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'></th>
-            <th className='15'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Athletics'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Athletics Race Walk
-              </Link>
-            </th>
-            <th className='venue'>City of Munich</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'></th>
-            <th className='15'></th>
-            <th className='16'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_athletics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Volleyball'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Beach Volleyball
-              </Link>
-            </th>
-            <th className='venue'>Konigsplatz</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'></th>
-            <th className='15'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_beachvolleyball_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='16'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_beachvolleyball_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='17'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_beachvolleyball_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='18'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_beachvolleyball_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='19'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_beachvolleyball_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='20'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_beachvolleyball_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_beachvolleyball_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              {' '}
-              <Link
-                to='/sport/Canoe'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Canoe Sprint
-              </Link>
-            </th>
-            <th className='venue'>Munich Olympic Regatta Centre</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'></th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_canoesprint_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='19'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_canoesprint_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='20'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_canoesprint_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_canoesprint_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              {' '}
-              <Link
-                to='/sport/Cycling'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Cycling Track
-              </Link>
-            </th>
-            <th className='venue'>Messe Munchen</th>
-            <th className='11'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='12'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='16'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_cycling_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Cycling'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Cycling Road
-              </Link>
-            </th>
-            <th className='venue'>City of Munich</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_cycling_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Cycling'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Cycling Mountain Bike
-              </Link>
-            </th>
-            <th className='venue'>Olympiapark</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'></th>
-            <th className='14'></th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='20'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_cycling_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Cycling'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Cycling BMX
-              </Link>
-            </th>
-            <th className='venue'>Olympiapark</th>
-            <th className='11'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='12'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_cycling_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_cycling_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'></th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Gymnastics'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Artistic Gymnastics
-              </Link>
-            </th>
-            <th className='venue'>Olympiapark</th>
-            <th className='11'>
-              {' '}
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_gymnastics_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='12'></th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_gymnastics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_gymnastics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_gymnastics_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='19'></th>
-            <th className='20'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_gymnastics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_gymnastics_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Rowing'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Rowing
-              </Link>
-            </th>
-            <th className='venue'>Munich Olympic Regatta Centre</th>
-            <th className='11'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_rowing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='12'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_rowing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_rowing_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_rowing_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Sport Climbing'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Sport Climbing
-              </Link>
-            </th>
-            <th className='venue'>Konigsplatz</th>
-            <th className='11'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_sportclimbing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='12'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_sportclimbing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_sportclimbing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_sportclimbing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_sportclimbing_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='16'></th>
-            <th className='17'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_sportclimbing_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='18'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_sportclimbing_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'></th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Table Tennis'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Table Tennis
-              </Link>
-            </th>
-            <th className='venue'>Rudi-Sedlmayer-Halle</th>
-            <th className='11'></th>
-            <th className='12'></th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='16'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='17'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='18'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='19'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_tabletennis_dot_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='20'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_tabletennis_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='21'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_tabletennis_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-          </tr>
-          <tr>
-            <th className='sport'>
-              <Link
-                to='/sport/Triathlon'
-                style={{ textDecoration: 'none', color: '#1c0e52' }}
-              >
-                Triathlon
-              </Link>
-            </th>
-            <th className='venue'>Olympiapark</th>
-            <th className='11'></th>
-            <th className='12'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_triathlon_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='13'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_triathlon_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='14'>
-              <img
-                src='https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_triathlon_medalicon_rgb.svg'
-                alt=''
-              />
-            </th>
-            <th className='15'></th>
-            <th className='16'></th>
-            <th className='17'></th>
-            <th className='18'></th>
-            <th className='19'></th>
-            <th className='20'></th>
-            <th className='21'></th>
-          </tr>
+          {sportDis.map((ch) => {
+            const items = [];
+            let sport = ch.discipline;
+
+            if (sport == 'Canoe Sprint') {
+              sport = 'canoesprint';
+            }
+            if (sport == 'Beach Volleyball') {
+              sport = 'beachvolleyball';
+            }
+            if (sport == 'Track') {
+              sport = 'Cycling';
+            }
+            if (sport == 'Road') {
+              sport = 'Cycling';
+            }
+            if (sport == 'Mountain Bike') {
+              sport = 'Cycling';
+            }
+            if (sport == 'BMX Freestyle') {
+              sport = 'Cycling';
+            }
+            if (sport == 'Artistic Gymnastics') {
+              sport = 'Gymnastics';
+            }
+
+            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sport
+              .split(' ')
+              .join('')
+              .toLowerCase()}_dot_rgb.svg`;
+            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sport
+              .split(' ')
+              .join('')
+              .toLowerCase()}_medalicon_rgb.svg`;
+            const baseUrlPicto = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Pictograms/PNG/ec_${sport
+              .split(' ')
+              .join('')
+              .toLowerCase()}_pictogram_fc_rgb.png`;
+            for (let i = 0; i < 11; i++) {
+              if (
+                parseInt(ch.info[i].date) - 11 == i &&
+                ch.info[i].medal == 'Yes'
+              ) {
+                items.push(
+                  <th>
+                    <img src={baseUrlMedal} alt='' />
+                  </th>
+                );
+              } else if (
+                parseInt(ch.info[i].date) - 11 == i &&
+                ch.info[i].medal == 'No'
+              ) {
+                items.push(
+                  <th>
+                    <img src={baseUrlDot} alt='' />
+                  </th>
+                );
+              } else {
+                items.push(<th></th>);
+              }
+            }
+            return (
+              <tr>
+                <th className='sport'>
+                  <Link
+                    to={`/sport/${ch.discipline}`}
+                    style={{ textDecoration: 'none', color: '#1c0e52' }}
+                  >
+                    {ch.discipline}
+                  </Link>
+                </th>
+
+                <th className='venue'>{ch.venue}</th>
+                {items}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <table className='content-table-mobile'>
@@ -841,7 +377,7 @@ const Widget1 = () => {
               <tr>
                 <th className='event'>
                   <Link
-                    to={`/sport/${vs.sport}`}
+                    to={`/sport/${vs.discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                   >
                     {vs.discipline}

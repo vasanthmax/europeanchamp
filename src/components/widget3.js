@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import eventValues from '../assets/table.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -16,10 +16,21 @@ const Widget3 = () => {
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_right.svg';
   const leftArrow =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_left.svg';
+  const [isClicked, setIsClicked] = useState('');
   const data = [...eventValues];
   const [fDate, setfDate] = useState(
     parseInt(window.location.pathname.split('/').pop())
   );
+  const filtertime = data.filter(
+    (ch) =>
+      new Date(ch.start).toLocaleString('UTC', {
+        timeZone: 'CET',
+        day: '2-digit',
+      }) === '11' &&
+      ch.sport == 'Gymnastics' &&
+      ch.medal == 'Yes'
+  );
+  console.log(filtertime);
   const filterByDate = data.filter(
     (ch) =>
       parseInt(
@@ -38,15 +49,15 @@ const Widget3 = () => {
   );
   const sportList = [];
   const dropdownlist = [];
-  for (let i = 0; i < filteredData.length; i++) {
-    const gender = filteredData[i].gender;
+  for (let i = 0; i < filterByDate.length; i++) {
+    const gender = filterByDate[i].gender;
     if (dropdownlist.indexOf(gender) === -1) {
       dropdownlist.push(gender);
     }
   }
   const dropdown2 = [];
-  for (let i = 0; i < filteredData.length; i++) {
-    const medal = filteredData[i].medal;
+  for (let i = 0; i < filterByDate.length; i++) {
+    const medal = filterByDate[i].medal;
     if (dropdown2.indexOf(medal) === -1) {
       dropdown2.push(medal);
     }
@@ -276,24 +287,36 @@ const Widget3 = () => {
     day,
     medal
   ) => {
-    const year = new Date(start).toLocaleString('UTC', {
+    const year = new Date(start).toLocaleString('default', {
       year: 'numeric',
     });
-    const month = new Date(start).toLocaleString('UTC', {
+    const month = new Date(start).toLocaleString('default', {
       month: 'numeric',
     });
-    const dayTime = new Date(start).toLocaleString('UTC', {
+    const dayTime = new Date(start).toLocaleString('default', {
       day: 'numeric',
     });
-    const endTime = new Date(end).toLocaleString('UTC', {
+    const startTimehour = new Date(start).toLocaleString('default', {
+      hour: '2-digit',
+    });
+    const startTimeminute = new Date(start).toLocaleString('default', {
+      minute: '2-digit',
+    });
+    const endTime = new Date(end).toLocaleString('default', {
       day: 'numeric',
+    });
+    const endTimehour = new Date(end).toLocaleString('default', {
+      hour: '2-digit',
+    });
+    const endTimeminute = new Date(end).toLocaleString('default', {
+      minute: '2-digit',
     });
     console.log(year);
     const eventCalen = {
       start: [year, month, dayTime],
       end: [year, month, endTime],
-      title: sport,
-      description: `event:${event} - discipline:${discipline} - gender:${gender} - medal:${medal} - phase:${phase}`,
+      title: `${discipline} - ${event}`,
+      description: `${discipline} - ${event}`,
       location: venue,
     };
     createEvent(eventCalen, (error, value) => {
@@ -348,7 +371,7 @@ const Widget3 = () => {
             <div className='sport'>
               <h3>AUGUST</h3>
               <p>
-                SPORTS:
+                SPORTS:&nbsp;&nbsp;
                 <span>
                   {/* CYLCING BMX, CYCLING TRACK, ARTISTICS GYMNASTICS, ROWING,
                   SPORT CLIMBING, TABLE TENNIS, TRIATHLON */}
@@ -429,7 +452,12 @@ const Widget3 = () => {
         </div>
       </div>
       <div className='time-zone'>
-        <p>*All times in Munich time (GMT+2). Show in local time.</p>
+        <p>
+          *All times in Munich time (GMT+2).{' '}
+          <span onClick={() => setIsClicked('clicked')}>
+            Show in local time.
+          </span>
+        </p>
       </div>
       <table className='date-event-table'>
         <thead>
@@ -469,23 +497,35 @@ const Widget3 = () => {
               MedalEvent = baseUrlDot;
             }
 
-            const startTime = new Date(ch.start).toLocaleString('UTC', {
+            let startTime = new Date(ch.start).toLocaleString('UTC', {
               timeZone: 'CET',
               hour: '2-digit',
               minute: '2-digit',
             });
-            const endTime = new Date(ch.end).toLocaleString('UTC', {
+            let endTime = new Date(ch.end).toLocaleString('UTC', {
               timeZone: 'CET',
               hour: '2-digit',
               minute: '2-digit',
             });
-            // console.log(startTime);
+            const showLocalTime = () => {
+              if (isClicked === 'clicked') {
+                startTime = new Date(ch.start).toLocaleString('default', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+                endTime = new Date(ch.end).toLocaleString('default', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+              }
+            };
+            showLocalTime();
             return (
               <tr>
                 <th className='sport'>
                   {' '}
                   <Link
-                    to={`/sport/${ch.sport}`}
+                    to={`/sport/${ch.discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                   >
                     {ch.discipline}
@@ -568,33 +608,47 @@ const Widget3 = () => {
               MedalEvent = baseUrlDot;
             }
 
-            const startTime = new Date(ch.start).toLocaleString('UTC', {
+            let startTime = new Date(ch.start).toLocaleString('UTC', {
               timeZone: 'CET',
               hour: '2-digit',
               minute: '2-digit',
             });
-            const endTime = new Date(ch.end).toLocaleString('UTC', {
+            let endTime = new Date(ch.end).toLocaleString('UTC', {
               timeZone: 'CET',
               hour: '2-digit',
               minute: '2-digit',
             });
             // console.log(startTime);
+            const showLocalTime = () => {
+              if (isClicked === 'clicked') {
+                startTime = new Date(ch.start).toLocaleString('default', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+                endTime = new Date(ch.end).toLocaleString('default', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+              }
+            };
+            showLocalTime();
+
             return (
               <div className='table-row'>
                 <tr>
                   <th className='event'>
-                    {ch.sport} - {ch.event}
+                    <Link
+                      to={`/sport/${ch.discipline}`}
+                      style={{ textDecoration: 'none', color: '#1c0e52' }}
+                    >
+                      {ch.sport} - {ch.event}
+                    </Link>
                   </th>
                 </tr>
 
                 <tr>
                   <th>
-                    <Link
-                      to={`/sport/${ch.sport}`}
-                      style={{ textDecoration: 'none', color: '#1c0e52' }}
-                    >
-                      {startTime} - {endTime}
-                    </Link>
+                    {startTime} - {endTime}
                   </th>
                   <th className='medal'>
                     <img src={MedalEvent} alt='' />

@@ -216,6 +216,9 @@
     color: #929292;
     p {
       text-align: right;
+      span {
+        cursor: pointer;
+      }
     }
   }
   @media screen and (max-width: 992px) {

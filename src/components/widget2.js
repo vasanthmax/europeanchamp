@@ -8,15 +8,31 @@ const Widget2 = () => {
   const data = [...eventValues];
   let sport = window.location.pathname.split('/').pop().replace('%20', ' ');
   console.log(sport);
-  const filteredValues = data.filter((ch) => ch.sport === sport);
+  const filteredValues = data.filter((ch) => ch.discipline === sport);
   const [filteredData, setFilteredData] = useState(filteredValues);
 
-  if (sport == 'Canoe') {
+  if (sport == 'Canoe Sprint') {
     sport = 'canoesprint';
   }
-  if (sport == 'Volleyball') {
+  if (sport == 'Beach Volleyball') {
     sport = 'beachvolleyball';
   }
+  if (sport == 'Track') {
+    sport = 'Cycling';
+  }
+  if (sport == 'Road') {
+    sport = 'Cycling';
+  }
+  if (sport == 'Mountain Bike') {
+    sport = 'Cycling';
+  }
+  if (sport == 'BMX Freestyle') {
+    sport = 'Cycling';
+  }
+  if (sport == 'Artistic Gymnastics') {
+    sport = 'Gymnastics';
+  }
+
   const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sport
     .split(' ')
     .join('')
@@ -34,7 +50,7 @@ const Widget2 = () => {
   let sportColors = {
     Athletics: '#FF7900',
     beachvolleyball: '#F18A61',
-    'Canoe Sprint': '#B9CE00',
+    canoesprint: '#B9CE00',
     Cycling: '#D52B1E',
     Gymnastics: '#CA005D',
     Rowing: '#00B2A9',
