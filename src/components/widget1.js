@@ -6,13 +6,9 @@ import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 
 const Widget1 = () => {
-  const data = [...tableValues];
   const dataFile = [...eventValues];
   const [date, setdate] = useState(11);
   const [selectedFilters, setSelectedFilters] = useState();
-
-  const filteredValues = data.filter((ch) => ch.date == date);
-  const [filteredData, setFilteredData] = useState([...filteredValues]);
   const dropdown2 = [
     'Thu 11 Aug',
     'Fri 12 Aug',
@@ -122,7 +118,28 @@ const Widget1 = () => {
   }
 
   console.log(sportDis);
+  const filtered = [];
 
+  for (let i = 0; i < 12; i++) {
+    const sport = sportDis[i].sport;
+    const discipline = sportDis[i].discipline;
+    const venue = sportDis[i].venue;
+
+    const index = sportDis.findIndex(
+      (ch) => ch.sport === sport && ch.discipline === discipline
+    );
+
+    const filter = sportDis[index].info.filter(
+      (ch) => ch.date === date.toString()
+    );
+    filtered.push({
+      sport: sport,
+      discipline: discipline,
+      venue: venue,
+      info: [...filter],
+    });
+  }
+  console.log(filtered);
   return (
     <div className='widget1'>
       <div className='month'>
@@ -286,10 +303,7 @@ const Widget1 = () => {
               .split(' ')
               .join('')
               .toLowerCase()}_medalicon_rgb.svg`;
-            const baseUrlPicto = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Pictograms/PNG/ec_${sport
-              .split(' ')
-              .join('')
-              .toLowerCase()}_pictogram_fc_rgb.png`;
+
             for (let i = 0; i < 11; i++) {
               if (
                 parseInt(ch.info[i].date) - 11 == i &&
@@ -345,48 +359,55 @@ const Widget1 = () => {
           </th>
         </thead>
         <tbody>
-          {filteredValues.map((vs) => {
-            let SportName = vs.sport;
-            let MedalEvent;
-            if (vs.sport === 'Canoe') {
-              SportName = 'canoesprint';
+          {filtered.map((vs) => {
+            let sport = vs.discipline;
+
+            if (sport == 'Canoe Sprint') {
+              sport = 'canoesprint';
             }
-            if (vs.sport === 'Volleyball') {
-              SportName = 'beachvolleyball';
+            if (sport == 'Beach Volleyball') {
+              sport = 'beachvolleyball';
             }
-            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${SportName.split(
-              ' '
-            )
+            if (sport == 'Track') {
+              sport = 'Cycling';
+            }
+            if (sport == 'Road') {
+              sport = 'Cycling';
+            }
+            if (sport == 'Mountain Bike') {
+              sport = 'Cycling';
+            }
+            if (sport == 'BMX Freestyle') {
+              sport = 'Cycling';
+            }
+            if (sport == 'Artistic Gymnastics') {
+              sport = 'Gymnastics';
+            }
+
+            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sport
+              .split(' ')
               .join('')
               .toLowerCase()}_dot_rgb.svg`;
-            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${SportName.split(
-              ' '
-            )
+            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sport
+              .split(' ')
               .join('')
               .toLowerCase()}_medalicon_rgb.svg`;
 
-            if (vs.medal == 'Yes') {
-              MedalEvent = baseUrlMedal;
-            } else if (vs.medal == 'No') {
-              MedalEvent = baseUrlDot;
-            } else {
-              MedalEvent = ' ';
-            }
-
             return (
               <tr>
-                <th className='event'>
-                  <Link
-                    to={`/sport/${vs.discipline}`}
-                    style={{ textDecoration: 'none', color: '#1c0e52' }}
-                  >
-                    {vs.discipline}
-                  </Link>
-                </th>
+                <th className='event'>{vs.discipline}</th>
                 <th className='venue'>{vs.venue}</th>
-                <th className='marker'>
-                  <img src={MedalEvent} alt='' />
-                </th>
+                {vs.info[0].medal === 'Yes' ? (
+                  <th className='marker'>
+                    <img src={baseUrlMedal} alt='' />
+                  </th>
+                ) : vs.info[0].medal === 'No' ? (
+                  <th className='marker'>
+                    <img src={baseUrlDot} alt='' />
+                  </th>
+                ) : (
+                  <th className='marker'></th>
+                )}
               </tr>
             );
           })}
