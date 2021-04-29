@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import eventValues from '../assets/table.json';
-import tableValues from '../assets/widget1.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
@@ -395,7 +394,14 @@ const Widget1 = () => {
 
             return (
               <tr>
-                <th className='event'>{vs.discipline}</th>
+                <th className='event'>
+                  <Link
+                    to={`/sport/${vs.discipline}`}
+                    style={{ textDecoration: 'none', color: '#1c0e52' }}
+                  >
+                    {vs.discipline}
+                  </Link>
+                </th>
                 <th className='venue'>{vs.venue}</th>
                 {vs.info[0].medal === 'Yes' ? (
                   <th className='marker'>

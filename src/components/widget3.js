@@ -17,6 +17,7 @@ const Widget3 = () => {
   const leftArrow =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_left.svg';
   const [isClicked, setIsClicked] = useState('');
+
   const data = [...eventValues];
   const [fDate, setfDate] = useState(
     parseInt(window.location.pathname.split('/').pop())
@@ -454,9 +455,13 @@ const Widget3 = () => {
       <div className='time-zone'>
         <p>
           *All times in Munich time (GMT+2).{' '}
-          <span onClick={() => setIsClicked('clicked')}>
-            Show in local time.
-          </span>
+          {isClicked === 'clicked' ? (
+            <span onClick={() => setIsClicked('')}>Show in Munich time</span>
+          ) : (
+            <span onClick={() => setIsClicked('clicked')}>
+              Show in local time
+            </span>
+          )}
         </p>
       </div>
       <table className='date-event-table'>
@@ -520,6 +525,21 @@ const Widget3 = () => {
               }
             };
             showLocalTime();
+            const showInMunichTime = () => {
+              if (isClicked === '') {
+                let startTime = new Date(ch.start).toLocaleString('UTC', {
+                  timeZone: 'CET',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+                let endTime = new Date(ch.end).toLocaleString('UTC', {
+                  timeZone: 'CET',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+              }
+            };
+            showInMunichTime();
             return (
               <tr>
                 <th className='sport'>
@@ -632,7 +652,21 @@ const Widget3 = () => {
               }
             };
             showLocalTime();
-
+            const showInMunichTime = () => {
+              if (isClicked === '') {
+                let startTime = new Date(ch.start).toLocaleString('UTC', {
+                  timeZone: 'CET',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+                let endTime = new Date(ch.end).toLocaleString('UTC', {
+                  timeZone: 'CET',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                });
+              }
+            };
+            showInMunichTime();
             return (
               <div className='table-row'>
                 <tr>
