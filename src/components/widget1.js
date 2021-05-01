@@ -345,7 +345,7 @@ const Widget1 = () => {
                       .toLowerCase()
                       .replace(' ', '-')}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
-                    target='_parent'
+                    target='_top'
                   >
                     {ch.discipline}
                   </a>
@@ -414,7 +414,7 @@ const Widget1 = () => {
                       .toLowerCase()
                       .replace(' ', '-')}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
-                    target='_parent'
+                    target='_top'
                   >
                     {vs.discipline}
                   </a>

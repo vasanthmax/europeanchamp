@@ -569,7 +569,7 @@ const Widget3 = () => {
                       .toLowerCase()
                       .replace(' ', '-')}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
-                    target='_parent'
+                    target='_top'
                   >
                     {ch.discipline}
                   </a>
@@ -699,7 +699,7 @@ const Widget3 = () => {
                         .toLowerCase()
                         .replace(' ', '-')}`}
                       style={{ textDecoration: 'none', color: '#1c0e52' }}
-                      target='_parent'
+                      target='_top'
                     >
                       {ch.sport} - {ch.event.replace('&#039;', "'")}
                     </a>
