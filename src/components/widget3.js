@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { sportApi } from '../actions/sportApi';
 import eventValues from '../assets/table.json';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -16,22 +18,21 @@ const Widget3 = () => {
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_right.svg';
   const leftArrow =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_left.svg';
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log('...loding');
+    dispatch(sportApi);
+  }, []);
+  let data = useSelector((state) => state.sportReducer.sport);
+  if (data.length === 0) {
+    dispatch(sportApi);
+  }
+  data = useSelector((state) => state.sportReducer.sport);
   const [isClicked, setIsClicked] = useState('');
 
-  const data = [...eventValues];
   const [fDate, setfDate] = useState(
     parseInt(window.location.pathname.split('/').pop())
   );
-  const filtertime = data.filter(
-    (ch) =>
-      new Date(ch.start).toLocaleString('UTC', {
-        timeZone: 'CET',
-        day: '2-digit',
-      }) === '11' &&
-      ch.sport == 'Gymnastics' &&
-      ch.medal == 'Yes'
-  );
-  console.log(filtertime);
   const filterByDate = data.filter(
     (ch) =>
       parseInt(
@@ -42,12 +43,29 @@ const Widget3 = () => {
       ) === fDate
   );
   const [filteredData, setFilteredData] = useState(filterByDate);
+  useEffect(() => {
+    console.log('in again useEffect');
+    setFilteredData(
+      data.filter(
+        (ch) =>
+          parseInt(
+            new Date(ch.start).getDate().toLocaleString('UTC', {
+              timeZone: 'CET',
+              day: '2-digit',
+            })
+          ) === fDate
+      )
+    );
+  }, [data]);
   const [week, setWeek] = useState(
-    new Date(filteredData[0]['start']).toLocaleString('UTC', {
+    new Date(
+      filteredData.length === 0 ? '' : filteredData[0]['start']
+    ).toLocaleString('UTC', {
       timeZone: 'CET',
       weekday: 'long',
     })
   );
+
   const sportList = [];
   const dropdownlist = [];
   for (let i = 0; i < filterByDate.length; i++) {
@@ -111,7 +129,9 @@ const Widget3 = () => {
   };
 
   const WeekDay = () => {
-    const week = new Date(filteredData[0]['start']).toLocaleString('UTC', {
+    const week = new Date(
+      filteredData.length === 0 ? '' : filteredData[0]['start']
+    ).toLocaleString('UTC', {
       weekday: 'long',
     });
     setWeek(week);
@@ -316,8 +336,8 @@ const Widget3 = () => {
     const eventCalen = {
       start: [year, month, dayTime],
       end: [year, month, endTime],
-      title: `${discipline} - ${event}`,
-      description: `${discipline} - ${event}`,
+      title: `${discipline} - ${event.replace('&#039;', "'")}`,
+      description: `${discipline} - ${event.replace('&#039;', "'")}`,
       location: venue,
     };
     createEvent(eventCalen, (error, value) => {
@@ -544,14 +564,17 @@ const Widget3 = () => {
               <tr>
                 <th className='sport'>
                   {' '}
-                  <Link
-                    to={`/sport/${ch.discipline}`}
+                  <a
+                    href={`https://www.europeanchampionships.com/${ch.sport
+                      .toLowerCase()
+                      .replace(' ', '-')}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
+                    target='_parent'
                   >
                     {ch.discipline}
-                  </Link>
+                  </a>
                 </th>
-                <th className='event'>{ch.event}</th>
+                <th className='event'>{ch.event.replace('&#039;', "'")}</th>
                 <th className='time'>
                   {startTime} - {endTime}
                 </th>
@@ -671,12 +694,15 @@ const Widget3 = () => {
               <div className='table-row'>
                 <tr>
                   <th className='event'>
-                    <Link
-                      to={`/sport/${ch.discipline}`}
+                    <a
+                      href={`https://www.europeanchampionships.com/${ch.sport
+                        .toLowerCase()
+                        .replace(' ', '-')}`}
                       style={{ textDecoration: 'none', color: '#1c0e52' }}
+                      target='_parent'
                     >
-                      {ch.sport} - {ch.event}
-                    </Link>
+                      {ch.sport} - {ch.event.replace('&#039;', "'")}
+                    </a>
                   </th>
                 </tr>
 

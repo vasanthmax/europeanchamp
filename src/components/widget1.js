@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
-import eventValues from '../assets/table.json';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { sportApi } from '../actions/sportApi';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 
 const Widget1 = () => {
-  const dataFile = [...eventValues];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(sportApi);
+  }, []);
+  const dataFile = useSelector((state) => state.sportReducer.sport);
   const [date, setdate] = useState(11);
   const [selectedFilters, setSelectedFilters] = useState();
   const dropdown2 = [
@@ -22,123 +27,129 @@ const Widget1 = () => {
     'Sun 21 Aug',
   ];
   const sportDis = [];
-  for (let i = 0; i < dataFile.length; i++) {
-    const sport = dataFile[i].sport;
-    const discipline = dataFile[i].discipline;
-    const venue = dataFile[i].venue;
 
-    if (
-      sportDis.findIndex(
+  if (dataFile.length != 0) {
+    for (let i = 0; i < dataFile.length; i++) {
+      const sport = dataFile[i].sport;
+      const discipline = dataFile[i].discipline;
+      const venue = dataFile[i].venue;
+
+      if (
+        sportDis.findIndex(
+          (ch) => ch.sport === sport && ch.discipline === discipline
+        ) === -1
+      ) {
+        sportDis.push({
+          sport: sport,
+          discipline: discipline,
+          venue: venue,
+          info: [
+            {
+              date: '11',
+              medal: 'na',
+            },
+            {
+              date: '12',
+              medal: 'na',
+            },
+            {
+              date: '13',
+              medal: 'na',
+            },
+            {
+              date: '14',
+              medal: 'na',
+            },
+            {
+              date: '15',
+              medal: 'na',
+            },
+            {
+              date: '16',
+              medal: 'na',
+            },
+            {
+              date: '17',
+              medal: 'na',
+            },
+            {
+              date: '18',
+              medal: 'na',
+            },
+            {
+              date: '19',
+              medal: 'na',
+            },
+            {
+              date: '20',
+              medal: 'na',
+            },
+            {
+              date: '21',
+              medal: 'na',
+            },
+          ],
+        });
+      }
+    }
+  }
+
+  if (dataFile.length != 0) {
+    for (let i = 0; i < dataFile.length; i++) {
+      const sport = dataFile[i].sport;
+      const discipline = dataFile[i].discipline;
+      const medal = dataFile[i].medal;
+      const date = new Date(dataFile[i].start).toLocaleString('GMT', {
+        timeZone: 'CET',
+        day: 'numeric',
+      });
+      const index = sportDis.findIndex(
         (ch) => ch.sport === sport && ch.discipline === discipline
-      ) === -1
-    ) {
-      sportDis.push({
-        sport: sport,
-        discipline: discipline,
-        venue: venue,
-        info: [
-          {
-            date: '11',
-            medal: 'na',
-          },
-          {
-            date: '12',
-            medal: 'na',
-          },
-          {
-            date: '13',
-            medal: 'na',
-          },
-          {
-            date: '14',
-            medal: 'na',
-          },
-          {
-            date: '15',
-            medal: 'na',
-          },
-          {
-            date: '16',
-            medal: 'na',
-          },
-          {
-            date: '17',
-            medal: 'na',
-          },
-          {
-            date: '18',
-            medal: 'na',
-          },
-          {
-            date: '19',
-            medal: 'na',
-          },
-          {
-            date: '20',
-            medal: 'na',
-          },
-          {
-            date: '21',
-            medal: 'na',
-          },
-        ],
+      );
+
+      if (
+        sportDis[index]['info']
+          .map((ch) => {
+            return ch.date;
+          })
+          .indexOf(date) === -1
+      ) {
+      }
+
+      sportDis[index].info.forEach((ele) => {
+        if (ele.date === date && medal == 'Yes') {
+          ele.medal = 'Yes';
+        } else if (ele.date === date && ele.medal == 'na') {
+          ele.medal = 'No';
+        }
       });
     }
   }
 
-  for (let i = 0; i < dataFile.length; i++) {
-    const sport = dataFile[i].sport;
-    const discipline = dataFile[i].discipline;
-    const medal = dataFile[i].medal;
-    const date = new Date(dataFile[i].start).toLocaleString('GMT', {
-      timeZone: 'CET',
-      day: 'numeric',
-    });
-    const index = sportDis.findIndex(
-      (ch) => ch.sport === sport && ch.discipline === discipline
-    );
-
-    if (
-      sportDis[index]['info']
-        .map((ch) => {
-          return ch.date;
-        })
-        .indexOf(date) === -1
-    ) {
-    }
-
-    sportDis[index].info.forEach((ele) => {
-      if (ele.date === date && medal == 'Yes') {
-        ele.medal = 'Yes';
-      } else if (ele.date === date && ele.medal == 'na') {
-        ele.medal = 'No';
-      }
-    });
-  }
-
-  console.log(sportDis);
   const filtered = [];
 
-  for (let i = 0; i < 12; i++) {
-    const sport = sportDis[i].sport;
-    const discipline = sportDis[i].discipline;
-    const venue = sportDis[i].venue;
+  if (dataFile != 0) {
+    for (let i = 0; i < 12; i++) {
+      const sport = sportDis[i].sport;
+      const discipline = sportDis[i].discipline;
+      const venue = sportDis[i].venue;
 
-    const index = sportDis.findIndex(
-      (ch) => ch.sport === sport && ch.discipline === discipline
-    );
+      const index = sportDis.findIndex(
+        (ch) => ch.sport === sport && ch.discipline === discipline
+      );
 
-    const filter = sportDis[index].info.filter(
-      (ch) => ch.date === date.toString()
-    );
-    filtered.push({
-      sport: sport,
-      discipline: discipline,
-      venue: venue,
-      info: [...filter],
-    });
+      const filter = sportDis[index].info.filter(
+        (ch) => ch.date === date.toString()
+      );
+      filtered.push({
+        sport: sport,
+        discipline: discipline,
+        venue: venue,
+        info: [...filter],
+      });
+    }
   }
-  console.log(filtered);
+
   return (
     <div className='widget1'>
       <div className='month'>
@@ -278,16 +289,16 @@ const Widget1 = () => {
             if (sport == 'Beach Volleyball') {
               sport = 'beachvolleyball';
             }
-            if (sport == 'Track') {
+            if (sport == 'Cycling Track') {
               sport = 'Cycling';
             }
-            if (sport == 'Road') {
+            if (sport == 'Cycling Road') {
               sport = 'Cycling';
             }
-            if (sport == 'Mountain Bike') {
+            if (sport == 'Cycling Mountain Bike') {
               sport = 'Cycling';
             }
-            if (sport == 'BMX Freestyle') {
+            if (sport == 'Cycling BMX Freestyle') {
               sport = 'Cycling';
             }
             if (sport == 'Artistic Gymnastics') {
@@ -329,12 +340,15 @@ const Widget1 = () => {
             return (
               <tr>
                 <th className='sport'>
-                  <Link
-                    to={`/sport/${ch.discipline}`}
+                  <a
+                    href={`https://www.europeanchampionships.com/${ch.sport
+                      .toLowerCase()
+                      .replace(' ', '-')}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
+                    target='_parent'
                   >
                     {ch.discipline}
-                  </Link>
+                  </a>
                 </th>
 
                 <th className='venue'>{ch.venue}</th>
@@ -367,16 +381,16 @@ const Widget1 = () => {
             if (sport == 'Beach Volleyball') {
               sport = 'beachvolleyball';
             }
-            if (sport == 'Track') {
+            if (sport == 'Cycling Track') {
               sport = 'Cycling';
             }
-            if (sport == 'Road') {
+            if (sport == 'Cycling Road') {
               sport = 'Cycling';
             }
-            if (sport == 'Mountain Bike') {
+            if (sport == 'Cycling Mountain Bike') {
               sport = 'Cycling';
             }
-            if (sport == 'BMX Freestyle') {
+            if (sport == 'Cycling BMX Freestyle') {
               sport = 'Cycling';
             }
             if (sport == 'Artistic Gymnastics') {
@@ -395,12 +409,15 @@ const Widget1 = () => {
             return (
               <tr>
                 <th className='event'>
-                  <Link
-                    to={`/sport/${vs.discipline}`}
+                  <a
+                    href={`https://www.europeanchampionships.com/${vs.sport
+                      .toLowerCase()
+                      .replace(' ', '-')}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
+                    target='_parent'
                   >
                     {vs.discipline}
-                  </Link>
+                  </a>
                 </th>
                 <th className='venue'>{vs.venue}</th>
                 {vs.info[0].medal === 'Yes' ? (

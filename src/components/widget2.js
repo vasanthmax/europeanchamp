@@ -1,47 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import eventValues from '../assets/table.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { sportApi } from '../actions/sportApi';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 
 const Widget2 = () => {
-  const data = [...eventValues];
-  let sport = window.location.pathname.split('/').pop().replace('%20', ' ');
-  console.log(sport);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('...loding');
+    dispatch(sportApi);
+  }, []);
+  const data = useSelector((state) => state.sportReducer.sport);
+
+  console.log(data);
+  let sport = window.location.pathname.split('/').pop().split('%20').join(' ');
+  let sportanotherValue = window.location.pathname
+    .split('/')
+    .pop()
+    .split('%20')
+    .join(' ');
+  if (sportanotherValue == 'Canoe Sprint') {
+    sportanotherValue = 'canoesprint';
+  }
+  if (sportanotherValue == 'Beach Volleyball') {
+    sportanotherValue = 'beachvolleyball';
+  }
+  if (sportanotherValue == 'Cycling Track') {
+    sportanotherValue = 'Cycling';
+  }
+  if (sportanotherValue == 'Cycling Road') {
+    sportanotherValue = 'Cycling';
+  }
+  if (sportanotherValue == 'Cycling Mountain Bike') {
+    sportanotherValue = 'Cycling';
+  }
+  if (sportanotherValue == 'Cycling BMX Freestyle') {
+    sportanotherValue = 'Cycling';
+  }
+  if (sportanotherValue == 'Artistic Gymnastics') {
+    sportanotherValue = 'Gymnastics';
+  }
   const filteredValues = data.filter((ch) => ch.discipline === sport);
+
   const [filteredData, setFilteredData] = useState(filteredValues);
 
-  if (sport == 'Canoe Sprint') {
-    sport = 'canoesprint';
-  }
-  if (sport == 'Beach Volleyball') {
-    sport = 'beachvolleyball';
-  }
-  if (sport == 'Track') {
-    sport = 'Cycling';
-  }
-  if (sport == 'Road') {
-    sport = 'Cycling';
-  }
-  if (sport == 'Mountain Bike') {
-    sport = 'Cycling';
-  }
-  if (sport == 'BMX Freestyle') {
-    sport = 'Cycling';
-  }
-  if (sport == 'Artistic Gymnastics') {
-    sport = 'Gymnastics';
-  }
+  useEffect(() => {
+    setFilteredData(data.filter((ch) => ch.discipline === sport));
+  }, [data]);
 
-  const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sport
+  const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sportanotherValue
     .split(' ')
     .join('')
     .toLowerCase()}_dot_rgb.svg`;
-  const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sport
+  const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sportanotherValue
     .split(' ')
     .join('')
     .toLowerCase()}_medalicon_rgb.svg`;
-  const baseUrlPicto = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Pictograms/PNG/ec_${sport
+  const baseUrlPicto = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Pictograms/PNG/ec_${sportanotherValue
     .split(' ')
     .join('')
     .toLowerCase()}_pictogram_fc_rgb.png`;
@@ -58,6 +75,7 @@ const Widget2 = () => {
     'Table Tennis': '#1D71B8',
     Triathlon: '#FECB00',
   };
+
   for (let i = 0; i < filteredData.length; i++) {
     const date = new Date(filteredData[i].start).toLocaleString('UTC', {
       timeZone: 'CET',
@@ -68,7 +86,8 @@ const Widget2 = () => {
       sportDates.push(date);
     }
   }
-  let colorp = `${sportColors[sport]}`;
+
+  let colorp = `${sportColors[sportanotherValue]}`;
   const dropdownlist = [];
   for (let i = 0; i < filteredValues.length; i++) {
     const gender = filteredValues[i].gender;
@@ -76,6 +95,7 @@ const Widget2 = () => {
       dropdownlist.push(gender);
     }
   }
+
   const dropdown2 = ['Yes', 'No', 'All'];
   const [gender, setGender] = useState('No Filter Selected');
   const [medal, setMedal] = useState('No Filter Selected');
@@ -137,13 +157,20 @@ const Widget2 = () => {
         <img id='pitco' src={baseUrlPicto} alt='' />
         <div className='sportdetails'>
           <h1 className='sportName' style={{ color: `${colorp}` }}>
-            {filteredData[0]['discipline'].toUpperCase()}
+            {filteredData.length === 0
+              ? ''
+              : filteredData[0]['discipline'].toUpperCase()}
           </h1>
           <p>
             DATES : <span>AUGUST {sportDates.join(',')}</span>
           </p>
           <p>
-            VENUE : <span>{filteredData[0]['venue'].toUpperCase()}</span>
+            VENUE :{' '}
+            <span>
+              {filteredData.length === 0
+                ? ''
+                : filteredData[0]['venue'].toUpperCase()}
+            </span>
           </p>
         </div>
       </div>
@@ -335,7 +362,7 @@ const Widget2 = () => {
 
             return (
               <tr>
-                <th className='eventName'>{ch.event}</th>
+                <th className='eventName'>{ch.event.replace('&#039;', "'")}</th>
                 {items}
               </tr>
             );
@@ -371,7 +398,9 @@ const Widget2 = () => {
             });
             return (
               <tr>
-                <th className='event-name'>{ch.event}</th>
+                <th className='event-name'>
+                  {ch.event.replace('&#039;', "'")}
+                </th>
                 <th className='date'>
                   <Link
                     to={`/date/${date}`}
