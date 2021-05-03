@@ -347,7 +347,7 @@ const Widget1 = () => {
                         : ch.sport === 'Volleyball'
                         ? 'beach-volleyball'
                         : ch.sport.toLowerCase().replace(' ', '-')
-                    }`}
+                    }#widget-02`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
@@ -420,7 +420,7 @@ const Widget1 = () => {
                         : vs.sport === 'Volleyball'
                         ? 'beach-volleyball'
                         : vs.sport.toLowerCase().replace(' ', '-')
-                    }`}
+                    }#widget-02`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >

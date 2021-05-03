@@ -336,8 +336,8 @@ const Widget3 = () => {
     const eventCalen = {
       start: [year, month, dayTime, startTimehour, startTimeminute],
       end: [year, month, endTime, endTimehour, endTimeminute],
-      title: `${discipline} - ${event.replace('&#039;', "'")}`,
-      description: `${discipline} - ${event.replace('&#039;', "'")}`,
+      title: `${discipline} - ${event.split('&#039;').join("'")}`,
+      description: `${discipline} - ${event.split('&#039;').join("'")}`,
       location: venue,
     };
     createEvent(eventCalen, (error, value) => {
@@ -569,7 +569,7 @@ const Widget3 = () => {
                       ch.sport === 'Canoe'
                         ? 'canoe-sprint'
                         : ch.sport.toLowerCase().replace(' ', '-')
-                    }`}
+                    }#widget-02`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
@@ -701,7 +701,7 @@ const Widget3 = () => {
                         ch.sport === 'Canoe'
                           ? 'canoe-sprint'
                           : ch.sport.toLowerCase().replace(' ', '-')
-                      }`}
+                      }#widget-02`}
                       style={{ textDecoration: 'none', color: '#1c0e52' }}
                       target='_top'
                     >
