@@ -341,9 +341,13 @@ const Widget1 = () => {
               <tr>
                 <th className='sport'>
                   <a
-                    href={`https://www.europeanchampionships.com/${ch.sport
-                      .toLowerCase()
-                      .replace(' ', '-')}`}
+                    href={`https://www.europeanchampionships.com/${
+                      ch.sport === 'Canoe'
+                        ? 'canoe-sprint'
+                        : ch.sport === 'Volleyball'
+                        ? 'beach-volleyball'
+                        : ch.sport.toLowerCase().replace(' ', '-')
+                    }`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
@@ -410,9 +414,13 @@ const Widget1 = () => {
               <tr>
                 <th className='event'>
                   <a
-                    href={`https://www.europeanchampionships.com/${vs.sport
-                      .toLowerCase()
-                      .replace(' ', '-')}`}
+                    href={`https://www.europeanchampionships.com/${
+                      vs.sport === 'Canoe'
+                        ? 'canoe-sprint'
+                        : vs.sport === 'Volleyball'
+                        ? 'beach-volleyball'
+                        : vs.sport.toLowerCase().replace(' ', '-')
+                    }`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >

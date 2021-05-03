@@ -211,7 +211,7 @@ const Widget2 = () => {
             ) : (
               <p>
                 <span onClick={() => setMedal('No Filter Selected')}>x</span>
-                {medal}
+                {`MEDAL EVENT-${medal}`}
               </p>
             )}
           </div>
@@ -362,7 +362,9 @@ const Widget2 = () => {
 
             return (
               <tr>
-                <th className='eventName'>{ch.event.replace('&#039;', "'")}</th>
+                <th className='eventName'>
+                  {ch.event.split('&#039;').join("'")}
+                </th>
                 {items}
               </tr>
             );
@@ -399,7 +401,7 @@ const Widget2 = () => {
             return (
               <tr>
                 <th className='event-name'>
-                  {ch.event.replace('&#039;', "'")}
+                  {ch.event.split('&#039;').join("'")}
                 </th>
                 <th className='date'>
                   <Link

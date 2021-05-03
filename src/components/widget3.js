@@ -334,8 +334,8 @@ const Widget3 = () => {
     });
     console.log(year);
     const eventCalen = {
-      start: [year, month, dayTime],
-      end: [year, month, endTime],
+      start: [year, month, dayTime, startTimehour, startTimeminute],
+      end: [year, month, endTime, endTimehour, endTimeminute],
       title: `${discipline} - ${event.replace('&#039;', "'")}`,
       description: `${discipline} - ${event.replace('&#039;', "'")}`,
       location: venue,
@@ -448,7 +448,7 @@ const Widget3 = () => {
             ) : (
               <p>
                 <span onClick={() => setMedal('No Filter Selected')}>x</span>
-                {medal}
+                {`MEDAL EVENT-${medal}`}
               </p>
             )}
             {sport === 'No Filter Selected' ? (
@@ -565,16 +565,18 @@ const Widget3 = () => {
                 <th className='sport'>
                   {' '}
                   <a
-                    href={`https://www.europeanchampionships.com/${ch.sport
-                      .toLowerCase()
-                      .replace(' ', '-')}`}
+                    href={`https://www.europeanchampionships.com/${
+                      ch.sport === 'Canoe'
+                        ? 'canoe-sprint'
+                        : ch.sport.toLowerCase().replace(' ', '-')
+                    }`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
                     {ch.discipline}
                   </a>
                 </th>
-                <th className='event'>{ch.event.replace('&#039;', "'")}</th>
+                <th className='event'>{ch.event.split('&#039;').join("'")}</th>
                 <th className='time'>
                   {startTime} - {endTime}
                 </th>
@@ -695,13 +697,15 @@ const Widget3 = () => {
                 <tr>
                   <th className='event'>
                     <a
-                      href={`https://www.europeanchampionships.com/${ch.sport
-                        .toLowerCase()
-                        .replace(' ', '-')}`}
+                      href={`https://www.europeanchampionships.com/${
+                        ch.sport === 'Canoe'
+                          ? 'canoe-sprint'
+                          : ch.sport.toLowerCase().replace(' ', '-')
+                      }`}
                       style={{ textDecoration: 'none', color: '#1c0e52' }}
                       target='_top'
                     >
-                      {ch.sport} - {ch.event.replace('&#039;', "'")}
+                      {ch.sport} - {ch.event.split('&#039;').join("'")}
                     </a>
                   </th>
                 </tr>
