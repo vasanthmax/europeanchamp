@@ -43,6 +43,15 @@ const Widget3 = () => {
       ) === fDate
   );
   const [filteredData, setFilteredData] = useState(filterByDate);
+
+  const [week, setWeek] = useState(
+    new Date(
+      filteredData.length === 0 ? '' : filteredData[0]['start']
+    ).toLocaleString('UTC', {
+      timeZone: 'CET',
+      weekday: 'long',
+    })
+  );
   useEffect(() => {
     console.log('in again useEffect');
     setFilteredData(
@@ -56,15 +65,15 @@ const Widget3 = () => {
           ) === fDate
       )
     );
+    setWeek(
+      new Date(
+        filteredData.length === 0 ? '' : filteredData[0]['start']
+      ).toLocaleString('UTC', {
+        timeZone: 'CET',
+        weekday: 'long',
+      })
+    );
   }, [data]);
-  const [week, setWeek] = useState(
-    new Date(
-      filteredData.length === 0 ? '' : filteredData[0]['start']
-    ).toLocaleString('UTC', {
-      timeZone: 'CET',
-      weekday: 'long',
-    })
-  );
 
   const sportList = [];
   const dropdownlist = [];

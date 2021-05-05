@@ -99,10 +99,13 @@ const Widget1 = () => {
       const sport = dataFile[i].sport;
       const discipline = dataFile[i].discipline;
       const medal = dataFile[i].medal;
-      const date = new Date(dataFile[i].start).toLocaleString('GMT', {
-        timeZone: 'CET',
-        day: 'numeric',
-      });
+      const date = new Date(dataFile[i].start.slice(0, 10)).toLocaleString(
+        'GMT',
+        {
+          timeZone: 'CET',
+          day: 'numeric',
+        }
+      );
       const index = sportDis.findIndex(
         (ch) => ch.sport === sport && ch.discipline === discipline
       );
@@ -163,7 +166,8 @@ const Widget1 = () => {
             onChange={(e) => {
               const selectedFilters = e.value;
               setSelectedFilters(selectedFilters);
-              const date = new Date(e.value).getDate();
+              const date = selectedFilters.slice(4, 7);
+              console.log(date);
               setdate(parseInt(date));
             }}
             value='Select a Date'
