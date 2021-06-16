@@ -4,27 +4,30 @@ import { sportApi } from '../actions/sportApi';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
+import ConstantSport from '../constants/constantSport';
+import StaticArray from '../constants/staticWords';
 
 const Widget1 = () => {
+  const location = window.location.pathname.split('/').join('');
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(sportApi);
+    dispatch(sportApi(location));
   }, []);
   const dataFile = useSelector((state) => state.sportReducer.sport);
   const [date, setdate] = useState(11);
   const [selectedFilters, setSelectedFilters] = useState();
   const dropdown2 = [
-    'Thu 11 Aug',
-    'Fri 12 Aug',
-    'Sat 13 Aug',
-    'Sun 14 Aug',
-    'Mon 15 Aug',
-    'Tue 16 Aug',
-    'Wed 17 Aug',
-    'Thu 18 Aug',
-    'Fri 19 Aug',
-    'Sat 20 Aug',
-    'Sun 21 Aug',
+    `${StaticArray[0]['Thu'][location]} 11 Aug`,
+    `${StaticArray[0]['Fri'][location]} 12 Aug`,
+    `${StaticArray[0]['Sat'][location]} 13 Aug`,
+    `${StaticArray[0]['Sun'][location]} 14 Aug`,
+    `${StaticArray[0]['Mon'][location]} 15 Aug`,
+    `${StaticArray[0]['Tue'][location]} 16 Aug`,
+    `${StaticArray[0]['Wed'][location]} 17 Aug`,
+    `${StaticArray[0]['Thu'][location]} 18 Aug`,
+    `${StaticArray[0]['Fri'][location]} 19 Aug`,
+    `${StaticArray[0]['Sat'][location]} 20 Aug`,
+    `${StaticArray[0]['Sun'][location]} 21 Aug`,
   ];
   const sportDis = [];
 
@@ -156,7 +159,7 @@ const Widget1 = () => {
   return (
     <div className='widget1'>
       <div className='month'>
-        <h2>AUGUST</h2>
+        <h2>{StaticArray[0]['August'][location]}</h2>
       </div>
       <div className='table-filter'>
         <hr />
@@ -170,24 +173,25 @@ const Widget1 = () => {
               console.log(date);
               setdate(parseInt(date));
             }}
-            value='Select a Date'
+            value={StaticArray[0]['SelectDate'][location]}
           />
           <p>
-            Selected Filters : <span>{selectedFilters}</span>
+            {StaticArray[0]['SelectedFilters'][location]} :{' '}
+            <span>{selectedFilters}</span>
           </p>
         </div>
       </div>
       <table className='content-table'>
         <thead>
-          <th className='sport'>SPORT / DISCIPLINE</th>
-          <th className='venue'>VENUE</th>
+          <th className='sport'>{StaticArray[0]['Sport'][location]}</th>
+          <th className='venue'>{StaticArray[0]['Venue'][location]}</th>
           <th>
             <Link
               to='/date/11'
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>11</h2>
-              <p>Thu</p>
+              <p>{StaticArray[0]['Thu'][location]}</p>
             </Link>
           </th>
           <th>
@@ -196,7 +200,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>12</h2>
-              <p>Fri</p>
+              <p>{StaticArray[0]['Fri'][location]}</p>
             </Link>
           </th>
           <th>
@@ -205,7 +209,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>13</h2>
-              <p>Sat</p>
+              <p>{StaticArray[0]['Sat'][location]}</p>
             </Link>
           </th>
           <th>
@@ -214,7 +218,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>14</h2>
-              <p>Sun</p>
+              <p>{StaticArray[0]['Sun'][location]}</p>
             </Link>
           </th>
           <th>
@@ -223,7 +227,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>15</h2>
-              <p>Mon</p>
+              <p>{StaticArray[0]['Mon'][location]}</p>
             </Link>
           </th>
           <th>
@@ -232,7 +236,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>16</h2>
-              <p>Tue</p>
+              <p>{StaticArray[0]['Tue'][location]}</p>
             </Link>
           </th>
           <th>
@@ -241,7 +245,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>17</h2>
-              <p>Wed</p>
+              <p>{StaticArray[0]['Wed'][location]}</p>
             </Link>
           </th>
           <th>
@@ -250,7 +254,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>18</h2>
-              <p>Thu</p>
+              <p>{StaticArray[0]['Thu'][location]}</p>
             </Link>
           </th>
           <th>
@@ -259,7 +263,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>19</h2>
-              <p>Fri</p>
+              <p>{StaticArray[0]['Fri'][location]}</p>
             </Link>
           </th>
 
@@ -269,7 +273,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>20</h2>
-              <p>Sat</p>
+              <p>{StaticArray[0]['Sat'][location]}</p>
             </Link>
           </th>
           <th>
@@ -278,7 +282,7 @@ const Widget1 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>21</h2>
-              <p>Sun</p>
+              <p>{StaticArray[0]['Sun'][location]}</p>
             </Link>
           </th>
         </thead>
@@ -286,37 +290,10 @@ const Widget1 = () => {
           {sportDis.map((ch) => {
             const items = [];
             let sport = ch.discipline;
-
-            if (sport == 'Canoe Sprint') {
-              sport = 'canoesprint';
-            }
-            if (sport == 'Beach Volleyball') {
-              sport = 'beachvolleyball';
-            }
-            if (sport == 'Cycling Track') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Cycling Road') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Cycling Mountain Bike') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Cycling BMX Freestyle') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Artistic Gymnastics') {
-              sport = 'Gymnastics';
-            }
-
-            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sport
-              .split(' ')
-              .join('')
-              .toLowerCase()}_dot_rgb.svg`;
-            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sport
-              .split(' ')
-              .join('')
-              .toLowerCase()}_medalicon_rgb.svg`;
+            const MedalIcon = ConstantSport(sport);
+            console.log(`Medal ${MedalIcon}`);
+            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${MedalIcon}_dot_rgb.svg`;
+            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${MedalIcon}_medalicon_rgb.svg`;
 
             for (let i = 0; i < 11; i++) {
               if (
@@ -345,13 +322,14 @@ const Widget1 = () => {
               <tr>
                 <th className='sport'>
                   <a
-                    href={`https://www.europeanchampionships.com/${
-                      ch.sport === 'Canoe'
-                        ? 'canoe-sprint'
-                        : ch.sport === 'Volleyball'
-                        ? 'beach-volleyball'
-                        : ch.sport.toLowerCase().replace(' ', '-')
-                    }#widget-02`}
+                    // href={`https://www.europeanchampionships.com/${
+                    //   ch.sport === 'Canoe'
+                    //     ? 'canoe-sprint'
+                    //     : ch.sport === 'Volleyball'
+                    //     ? 'beach-volleyball'
+                    //     : ch.sport.toLowerCase().replace(' ', '-')
+                    // }#widget-02`}
+                    href={`${location}/sport/${ch.discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
@@ -368,8 +346,8 @@ const Widget1 = () => {
       </table>
       <table className='content-table-mobile'>
         <thead>
-          <th>SPORT / DISCIPLINE</th>
-          <th>VENUE</th>
+          <th>{StaticArray[0]['Sport'][location]}</th>
+          <th>{StaticArray[0]['Venue'][location]}</th>
           <th className='date'>
             <Link
               to={`/date/${date}`}
@@ -383,36 +361,10 @@ const Widget1 = () => {
           {filtered.map((vs) => {
             let sport = vs.discipline;
 
-            if (sport == 'Canoe Sprint') {
-              sport = 'canoesprint';
-            }
-            if (sport == 'Beach Volleyball') {
-              sport = 'beachvolleyball';
-            }
-            if (sport == 'Cycling Track') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Cycling Road') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Cycling Mountain Bike') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Cycling BMX Freestyle') {
-              sport = 'Cycling';
-            }
-            if (sport == 'Artistic Gymnastics') {
-              sport = 'Gymnastics';
-            }
-
-            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sport
-              .split(' ')
-              .join('')
-              .toLowerCase()}_dot_rgb.svg`;
-            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sport
-              .split(' ')
-              .join('')
-              .toLowerCase()}_medalicon_rgb.svg`;
+            const MedalIcon = ConstantSport(sport);
+            console.log(`Medal ${MedalIcon}`);
+            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${MedalIcon}_dot_rgb.svg`;
+            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${MedalIcon}_medalicon_rgb.svg`;
 
             return (
               <tr>

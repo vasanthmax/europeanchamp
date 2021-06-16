@@ -4,13 +4,16 @@ import { sportApi } from '../actions/sportApi';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
+import ConstantSport from '../constants/constantSport';
+import StaticArray from '../constants/staticWords';
 
 const Widget2 = () => {
   const dispatch = useDispatch();
-
+  const lang = window.location.pathname.split('/')[1];
+  console.log(lang);
   useEffect(() => {
     console.log('...loding');
-    dispatch(sportApi);
+    dispatch(sportApi(lang));
   }, []);
   const data = useSelector((state) => state.sportReducer.sport);
 
@@ -21,27 +24,28 @@ const Widget2 = () => {
     .pop()
     .split('%20')
     .join(' ');
-  if (sportanotherValue == 'Canoe Sprint') {
-    sportanotherValue = 'canoesprint';
-  }
-  if (sportanotherValue == 'Beach Volleyball') {
-    sportanotherValue = 'beachvolleyball';
-  }
-  if (sportanotherValue == 'Cycling Track') {
-    sportanotherValue = 'Cycling';
-  }
-  if (sportanotherValue == 'Cycling Road') {
-    sportanotherValue = 'Cycling';
-  }
-  if (sportanotherValue == 'Cycling Mountain Bike') {
-    sportanotherValue = 'Cycling';
-  }
-  if (sportanotherValue == 'Cycling BMX Freestyle') {
-    sportanotherValue = 'Cycling';
-  }
-  if (sportanotherValue == 'Artistic Gymnastics') {
-    sportanotherValue = 'Gymnastics';
-  }
+  // if (sportanotherValue == 'Canoe Sprint') {
+  //   sportanotherValue = 'canoesprint';
+  // }
+  // if (sportanotherValue == 'Beach Volleyball') {
+  //   sportanotherValue = 'beachvolleyball';
+  // }
+  // if (sportanotherValue == 'Cycling Track') {
+  //   sportanotherValue = 'Cycling';
+  // }
+  // if (sportanotherValue == 'Cycling Road') {
+  //   sportanotherValue = 'Cycling';
+  // }
+  // if (sportanotherValue == 'Cycling Mountain Bike') {
+  //   sportanotherValue = 'Cycling';
+  // }
+  // if (sportanotherValue == 'Cycling BMX Freestyle') {
+  //   sportanotherValue = 'Cycling';
+  // }
+  // if (sportanotherValue == 'Artistic Gymnastics') {
+  //   sportanotherValue = 'Gymnastics';
+  // }
+  const sportIcons = ConstantSport(sportanotherValue);
   const filteredValues = data.filter((ch) => ch.discipline === sport);
 
   const [filteredData, setFilteredData] = useState(filteredValues);
@@ -50,29 +54,20 @@ const Widget2 = () => {
     setFilteredData(data.filter((ch) => ch.discipline === sport));
   }, [data]);
 
-  const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sportanotherValue
-    .split(' ')
-    .join('')
-    .toLowerCase()}_dot_rgb.svg`;
-  const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sportanotherValue
-    .split(' ')
-    .join('')
-    .toLowerCase()}_medalicon_rgb.svg`;
-  const baseUrlPicto = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Pictograms/PNG/ec_${sportanotherValue
-    .split(' ')
-    .join('')
-    .toLowerCase()}_pictogram_fc_rgb.png`;
+  const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sportIcons}_dot_rgb.svg`;
+  const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sportIcons}_medalicon_rgb.svg`;
+  const baseUrlPicto = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Pictograms/PNG/ec_${sportIcons}_pictogram_fc_rgb.png`;
 
   let sportDates = [];
   let sportColors = {
-    Athletics: '#FF7900',
+    athletics: '#FF7900',
     beachvolleyball: '#F18A61',
     canoesprint: '#B9CE00',
-    Cycling: '#D52B1E',
-    Gymnastics: '#CA005D',
-    Rowing: '#00B2A9',
-    'Sport Climbing': '#E71D73',
-    'Table Tennis': '#1D71B8',
+    cycling: '#D52B1E',
+    gymnastics: '#CA005D',
+    rowing: '#00B2A9',
+    sportclimbing: '#E71D73',
+    tabletennis: '#1D71B8',
     Triathlon: '#FECB00',
   };
 
@@ -87,7 +82,7 @@ const Widget2 = () => {
     }
   }
 
-  let colorp = `${sportColors[sportanotherValue]}`;
+  let colorp = `${sportColors[sportIcons]}`;
   const dropdownlist = [];
   for (let i = 0; i < filteredValues.length; i++) {
     const gender = filteredValues[i].gender;
@@ -162,10 +157,13 @@ const Widget2 = () => {
               : filteredData[0]['discipline'].toUpperCase()}
           </h1>
           <p>
-            DATES : <span>AUGUST {sportDates.join(',')}</span>
+            {StaticArray[0]['Dates'][lang]} :{' '}
+            <span>
+              {StaticArray[0]['August'][lang]} {sportDates.join(',')}
+            </span>
           </p>
           <p>
-            VENUE :{' '}
+            {StaticArray[0]['Venue'][lang]} :{' '}
             <span>
               {filteredData.length === 0
                 ? ''
@@ -182,7 +180,11 @@ const Widget2 = () => {
             onChange={(e) => {
               setGender(e.value);
             }}
-            value={gender === 'No Filter Selected' ? 'GENDER' : gender}
+            value={
+              gender === 'No Filter Selected'
+                ? StaticArray[0]['Gender'][lang]
+                : gender
+            }
             placeholder='Select an option'
           />
           <Dropdown
@@ -190,14 +192,18 @@ const Widget2 = () => {
             onChange={(e) => {
               setMedal(e.value);
             }}
-            value={medal === 'No Filter Selected' ? 'MEDAL EVENT' : medal}
+            value={
+              medal === 'No Filter Selected'
+                ? StaticArray[0]['MedalEvent'][lang]
+                : medal
+            }
             placeholder='Select an option'
           />
         </div>
         <hr />
         <div className='selected-filters'>
           <div className='filter'>
-            <p>Selected Filters:</p>
+            <p>{StaticArray[0]['SelectedFilters'][lang]}:</p>
             {gender === 'No Filter Selected' ? (
               ''
             ) : (
@@ -211,7 +217,7 @@ const Widget2 = () => {
             ) : (
               <p>
                 <span onClick={() => setMedal('No Filter Selected')}>x</span>
-                {`MEDAL EVENT-${medal}`}
+                {`${StaticArray[0]['MedalEvent'][lang]}-${medal}`}
               </p>
             )}
           </div>
@@ -222,24 +228,24 @@ const Widget2 = () => {
             }}
             style={{ cursor: 'pointer' }}
           >
-            Clear all
+            {StaticArray[0]['Clear'][lang]}
           </p>
         </div>
       </div>
 
       <div className='month'>
-        <h2>AUGUST</h2>
+        <h2>{StaticArray[0]['August'][lang]}</h2>
       </div>
       <table className='content-table'>
         <thead>
-          <th className='sport'>EVENT NAME</th>
+          <th className='sport'>{StaticArray[0]['Eventname'][lang]}</th>
           <th>
             <Link
               to='/date/11'
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>11</h2>
-              <p>Thu</p>
+              <p>{StaticArray[0]['Thu'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -248,7 +254,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>12</h2>
-              <p>Fri</p>
+              <p>{StaticArray[0]['Fri'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -257,7 +263,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>13</h2>
-              <p>Sat</p>
+              <p>{StaticArray[0]['Sat'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -266,7 +272,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>14</h2>
-              <p>Sun</p>
+              <p>{StaticArray[0]['Sun'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -275,7 +281,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>15</h2>
-              <p>Mon</p>
+              <p>{StaticArray[0]['Mon'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -284,7 +290,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>16</h2>
-              <p>Tue</p>
+              <p>{StaticArray[0]['Tue'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -293,7 +299,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>17</h2>
-              <p>Wed</p>
+              <p>{StaticArray[0]['Wed'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -302,7 +308,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>18</h2>
-              <p>Thu</p>
+              <p>{StaticArray[0]['Thu'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -311,7 +317,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>19</h2>
-              <p>Fri</p>
+              <p>{StaticArray[0]['Fri'][lang]}</p>
             </Link>
           </th>
 
@@ -321,7 +327,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>20</h2>
-              <p>Sat</p>
+              <p>{StaticArray[0]['Sat'][lang]}</p>
             </Link>
           </th>
           <th>
@@ -330,7 +336,7 @@ const Widget2 = () => {
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>21</h2>
-              <p>Sun</p>
+              <p>{StaticArray[0]['Sun'][lang]}</p>
             </Link>
           </th>
         </thead>
@@ -373,9 +379,9 @@ const Widget2 = () => {
       </table>
       <table className='content-table-mobile'>
         <thead>
-          <th className='sport'>EVENT NAME</th>
-          <th>DATE</th>
-          <th>MEDAL</th>
+          <th className='sport'>{StaticArray[0]['Eventname'][lang]}</th>
+          <th>{StaticArray[0]['Dates'][lang]}</th>
+          <th>{StaticArray[0]['Medal'][lang]}</th>
         </thead>
         <tbody>
           {filteredData.map((ch) => {
@@ -386,12 +392,17 @@ const Widget2 = () => {
               medal = baseUrlDot;
             }
 
+            const weekday = new Date(ch.start)
+              .toLocaleString('UTC', {
+                timeZone: 'CET',
+                weekday: 'short',
+              })
+              .toString();
             const month = new Date(ch.start)
               .toLocaleString('UTC', {
                 timeZone: 'CET',
                 month: 'short',
                 day: '2-digit',
-                weekday: 'short',
               })
               .toString();
             console.log(month.replace(',', ''));
@@ -408,6 +419,7 @@ const Widget2 = () => {
                     to={`/date/${date}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                   >
+                    {`${StaticArray[0][weekday][lang]} `}
                     {month.replace(',', '')}
                   </Link>
                 </th>
