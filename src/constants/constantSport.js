@@ -16,21 +16,29 @@ const ConstantSport = (sport) => {
   if (
     sport == 'Cycling Track' ||
     sport == 'Cyclisme sur piste' ||
-    sport == 'Bahnrennsport'
+    sport == 'Radsport Bahnrennsport'
   ) {
     return 'cycling';
   }
   if (
     sport == 'Cycling Road' ||
     sport == 'Cyclisme sur route' ||
-    sport == 'Straßenradrennsport'
+    sport == 'Radsport Straßenradrennsport'
   ) {
     return 'cycling';
   }
-  if (sport == 'Cycling Mountain Bike' || sport == 'Mountain Bike') {
+  if (
+    sport == 'Cycling Mountain Bike' ||
+    sport == 'Cyclisme Mountain Bike' ||
+    sport == 'Radsport Mountain Bike'
+  ) {
     return 'cycling';
   }
-  if (sport == 'Cycling BMX Freestyle' || sport == 'BMX Freestyle') {
+  if (
+    sport == 'Cycling BMX Freestyle' ||
+    sport == 'Cyclisme BMX Freestyle' ||
+    sport == 'Radsport BMX Freestyle'
+  ) {
     return 'cycling';
   }
   if (

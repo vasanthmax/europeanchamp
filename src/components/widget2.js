@@ -18,33 +18,14 @@ const Widget2 = () => {
   const data = useSelector((state) => state.sportReducer.sport);
 
   console.log(data);
-  let sport = window.location.pathname.split('/').pop().split('%20').join(' ');
-  let sportanotherValue = window.location.pathname
-    .split('/')
-    .pop()
-    .split('%20')
-    .join(' ');
-  // if (sportanotherValue == 'Canoe Sprint') {
-  //   sportanotherValue = 'canoesprint';
-  // }
-  // if (sportanotherValue == 'Beach Volleyball') {
-  //   sportanotherValue = 'beachvolleyball';
-  // }
-  // if (sportanotherValue == 'Cycling Track') {
-  //   sportanotherValue = 'Cycling';
-  // }
-  // if (sportanotherValue == 'Cycling Road') {
-  //   sportanotherValue = 'Cycling';
-  // }
-  // if (sportanotherValue == 'Cycling Mountain Bike') {
-  //   sportanotherValue = 'Cycling';
-  // }
-  // if (sportanotherValue == 'Cycling BMX Freestyle') {
-  //   sportanotherValue = 'Cycling';
-  // }
-  // if (sportanotherValue == 'Artistic Gymnastics') {
-  //   sportanotherValue = 'Gymnastics';
-  // }
+  let sport = decodeURIComponent(
+    window.location.pathname.split('/').pop().split('%20').join(' ')
+  );
+
+  let sportanotherValue = decodeURIComponent(
+    window.location.pathname.split('/').pop().split('%20').join(' ')
+  );
+
   const sportIcons = ConstantSport(sportanotherValue);
   const filteredValues = data.filter((ch) => ch.discipline === sport);
 
@@ -157,9 +138,10 @@ const Widget2 = () => {
               : filteredData[0]['discipline'].toUpperCase()}
           </h1>
           <p>
-            {StaticArray[0]['Dates'][lang]} :{' '}
+            {StaticArray[0]['Dates'][lang].toUpperCase()} :{' '}
             <span>
-              {StaticArray[0]['August'][lang]} {sportDates.join(',')}
+              {StaticArray[0]['August'][lang].toUpperCase()}{' '}
+              {sportDates.join(',')}
             </span>
           </p>
           <p>
@@ -182,7 +164,7 @@ const Widget2 = () => {
             }}
             value={
               gender === 'No Filter Selected'
-                ? StaticArray[0]['Gender'][lang]
+                ? StaticArray[0]['Gender'][lang].toUpperCase()
                 : gender
             }
             placeholder='Select an option'
@@ -194,7 +176,7 @@ const Widget2 = () => {
             }}
             value={
               medal === 'No Filter Selected'
-                ? StaticArray[0]['MedalEvent'][lang]
+                ? StaticArray[0]['MedalEvent'][lang].toUpperCase()
                 : medal
             }
             placeholder='Select an option'
@@ -217,7 +199,7 @@ const Widget2 = () => {
             ) : (
               <p>
                 <span onClick={() => setMedal('No Filter Selected')}>x</span>
-                {`${StaticArray[0]['MedalEvent'][lang]}-${medal}`}
+                {`${StaticArray[0]['MedalEvent'][lang].toUpperCase()}-${medal}`}
               </p>
             )}
           </div>
@@ -234,14 +216,16 @@ const Widget2 = () => {
       </div>
 
       <div className='month'>
-        <h2>{StaticArray[0]['August'][lang]}</h2>
+        <h2>{StaticArray[0]['August'][lang].toUpperCase()}</h2>
       </div>
       <table className='content-table'>
         <thead>
-          <th className='sport'>{StaticArray[0]['Eventname'][lang]}</th>
+          <th className='sport'>
+            {StaticArray[0]['Eventname'][lang].toUpperCase()}
+          </th>
           <th>
             <Link
-              to='/date/11'
+              to={`/${lang}/date/11`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>11</h2>
@@ -250,7 +234,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/12'
+              to={`/${lang}/date/12`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>12</h2>
@@ -259,7 +243,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/13'
+              to={`/${lang}/date/13`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>13</h2>
@@ -268,7 +252,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/14'
+              to={`/${lang}/date/14`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>14</h2>
@@ -277,7 +261,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/15'
+              to={`/${lang}/date/15`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>15</h2>
@@ -286,7 +270,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/16'
+              to={`/${lang}/date/16`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>16</h2>
@@ -295,7 +279,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/17'
+              to={`/${lang}/date/17`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>17</h2>
@@ -304,7 +288,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/18'
+              to={`/${lang}/date/18`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>18</h2>
@@ -313,7 +297,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/19'
+              to={`/${lang}/date/19`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>19</h2>
@@ -323,7 +307,7 @@ const Widget2 = () => {
 
           <th>
             <Link
-              to='/date/20'
+              to={`/${lang}/date/20`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>20</h2>
@@ -332,7 +316,7 @@ const Widget2 = () => {
           </th>
           <th>
             <Link
-              to='/date/21'
+              to={`/${lang}/date/21`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>21</h2>

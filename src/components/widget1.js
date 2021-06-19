@@ -102,13 +102,15 @@ const Widget1 = () => {
       const sport = dataFile[i].sport;
       const discipline = dataFile[i].discipline;
       const medal = dataFile[i].medal;
-      const date = new Date(dataFile[i].start.slice(0, 10)).toLocaleString(
+      let date = new Date(dataFile[i].start.slice(0, 10)).toLocaleString(
         'GMT',
         {
           timeZone: 'CET',
           day: 'numeric',
         }
       );
+
+      console.log(date);
       const index = sportDis.findIndex(
         (ch) => ch.sport === sport && ch.discipline === discipline
       );
@@ -159,7 +161,7 @@ const Widget1 = () => {
   return (
     <div className='widget1'>
       <div className='month'>
-        <h2>{StaticArray[0]['August'][location]}</h2>
+        <h2>{StaticArray[0]['August'][location].toUpperCase()}</h2>
       </div>
       <div className='table-filter'>
         <hr />
@@ -169,7 +171,10 @@ const Widget1 = () => {
             onChange={(e) => {
               const selectedFilters = e.value;
               setSelectedFilters(selectedFilters);
-              const date = selectedFilters.slice(4, 7);
+              let date = selectedFilters.slice(4, 7);
+              if (location == 'de') {
+                date = selectedFilters.slice(3, 6);
+              }
               console.log(date);
               setdate(parseInt(date));
             }}
@@ -183,11 +188,15 @@ const Widget1 = () => {
       </div>
       <table className='content-table'>
         <thead>
-          <th className='sport'>{StaticArray[0]['Sport'][location]}</th>
-          <th className='venue'>{StaticArray[0]['Venue'][location]}</th>
+          <th className='sport'>
+            {StaticArray[0]['Sport'][location].toUpperCase()}
+          </th>
+          <th className='venue'>
+            {StaticArray[0]['Venue'][location].toUpperCase()}
+          </th>
           <th>
             <Link
-              to='/date/11'
+              to={`${location}/date/11`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>11</h2>
@@ -196,7 +205,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/12'
+              to={`${location}/date/12`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>12</h2>
@@ -205,7 +214,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/13'
+              to={`${location}/date/13`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>13</h2>
@@ -214,7 +223,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/14'
+              to={`${location}/date/14`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>14</h2>
@@ -223,7 +232,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/15'
+              to={`${location}/date/15`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>15</h2>
@@ -232,7 +241,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/16'
+              to={`${location}/date/16`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>16</h2>
@@ -241,7 +250,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/17'
+              to={`${location}/date/17`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>17</h2>
@@ -250,7 +259,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/18'
+              to={`${location}/date/18`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>18</h2>
@@ -259,7 +268,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/19'
+              to={`${location}/date/19`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>19</h2>
@@ -269,7 +278,7 @@ const Widget1 = () => {
 
           <th>
             <Link
-              to='/date/20'
+              to={`${location}/date/20`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>20</h2>
@@ -278,7 +287,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to='/date/21'
+              to={`${location}/date/21`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>21</h2>
@@ -346,11 +355,11 @@ const Widget1 = () => {
       </table>
       <table className='content-table-mobile'>
         <thead>
-          <th>{StaticArray[0]['Sport'][location]}</th>
-          <th>{StaticArray[0]['Venue'][location]}</th>
+          <th>{StaticArray[0]['Sport'][location].toUpperCase()}</th>
+          <th>{StaticArray[0]['Venue'][location].toUpperCase()}</th>
           <th className='date'>
             <Link
-              to={`/date/${date}`}
+              to={`${location}/date/${date}`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               {date} AUG
@@ -370,13 +379,14 @@ const Widget1 = () => {
               <tr>
                 <th className='event'>
                   <a
-                    href={`https://www.europeanchampionships.com/${
-                      vs.sport === 'Canoe'
-                        ? 'canoe-sprint'
-                        : vs.sport === 'Volleyball'
-                        ? 'beach-volleyball'
-                        : vs.sport.toLowerCase().replace(' ', '-')
-                    }#widget-02`}
+                    // href={`https://www.europeanchampionships.com/${
+                    //   vs.sport === 'Canoe'
+                    //     ? 'canoe-sprint'
+                    //     : vs.sport === 'Volleyball'
+                    //     ? 'beach-volleyball'
+                    //     : vs.sport.toLowerCase().replace(' ', '-')
+                    // }#widget-02`}
+                    href={`${location}/sport/${vs.discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >

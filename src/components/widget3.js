@@ -6,7 +6,8 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 import { createEvent } from 'ics';
-
+import ConstantSport from '../constants/constantSport';
+import StaticArray from '../constants/staticWords';
 const Widget3 = () => {
   const calendar =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/PNG/calendar.png';
@@ -18,14 +19,15 @@ const Widget3 = () => {
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_right.svg';
   const leftArrow =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_left.svg';
+  const lang = window.location.pathname.split('/')[1];
   const dispatch = useDispatch();
   useEffect(() => {
     console.log('...loding');
-    dispatch(sportApi);
+    dispatch(sportApi(lang));
   }, []);
   let data = useSelector((state) => state.sportReducer.sport);
   if (data.length === 0) {
-    dispatch(sportApi);
+    dispatch(sportApi(lang));
   }
   data = useSelector((state) => state.sportReducer.sport);
   const [isClicked, setIsClicked] = useState('');
@@ -507,23 +509,11 @@ const Widget3 = () => {
         <tbody>
           {filteredData.map((ch) => {
             let SportName = ch.sport;
+            let discipline = ch.discipline;
             let MedalEvent;
-            if (ch.sport === 'Canoe') {
-              SportName = 'canoesprint';
-            }
-            if (ch.sport === 'Volleyball') {
-              SportName = 'beachvolleyball';
-            }
-            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${SportName.split(
-              ' '
-            )
-              .join('')
-              .toLowerCase()}_dot_rgb.svg`;
-            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${SportName.split(
-              ' '
-            )
-              .join('')
-              .toLowerCase()}_medalicon_rgb.svg`;
+            const sportIcons = ConstantSport(discipline);
+            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sportIcons}_dot_rgb.svg`;
+            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sportIcons}_medalicon_rgb.svg`;
 
             if (ch.medal == 'Yes') {
               MedalEvent = baseUrlMedal;

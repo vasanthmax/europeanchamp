@@ -18,7 +18,7 @@ function App() {
         <Switch>
           <Route path='/:id' component={Widget1} exact />
           <Route path='/:id/sport/:id' component={Widget2} />
-          <Route path='/date/:id' component={Widget3}></Route>
+          <Route path='/:id/date/:id' component={Widget3}></Route>
         </Switch>
       </BrowserRouter>
     </div>
