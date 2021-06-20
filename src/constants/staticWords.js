@@ -91,6 +91,76 @@ const StaticArray = [
       de: 'Medaille',
       fr: 'Médaille',
     },
+    Monday: {
+      en: 'Monday',
+      de: 'Montag',
+      fr: 'Lundi',
+    },
+    Tuesday: {
+      en: 'Tuesday',
+      de: 'Dienstag',
+      fr: 'Mardi',
+    },
+    Wednesday: {
+      en: 'Wednesday',
+      de: 'Mittwoch',
+      fr: 'Mercredi',
+    },
+    Thursday: {
+      en: 'Thursday',
+      de: 'Donnerstag',
+      fr: 'Jeudi',
+    },
+    Friday: {
+      en: 'Friday',
+      de: 'Freitag',
+      fr: 'Vendredi',
+    },
+    Saturday: {
+      en: 'Saturday',
+      de: 'Samstag',
+      fr: 'Samedi',
+    },
+    Sunday: {
+      en: 'Sunday',
+      de: 'Sonntag',
+      fr: 'Dimanche',
+    },
+    Sports: {
+      en: 'Sports',
+      de: 'Sportarten',
+      fr: 'Sports',
+    },
+    Medal: {
+      en: 'Medal',
+      de: 'Medaille',
+      fr: 'Médaille',
+    },
+    AddTo: {
+      en: 'ADD TO',
+      de: 'Hinzufügen',
+      fr: 'Ajouter à',
+    },
+    slocaltime: {
+      en: 'Show in local time',
+      de: 'Ihre lokale Zeitzone',
+      fr: 'Afficher en heure locale',
+    },
+    smunichtime: {
+      en: 'Show in Munich time',
+      de: 'Gehe zur Münchner Zeitzone',
+      fr: "Afficher àl'heure de Munich",
+    },
+    amunichtime: {
+      en: '*All times in Munich time (GMT+2).',
+      de: '*Alle Uhrzeiten sind lokale Münchner Zeiten (GMT+2).',
+      fr: "* Toutes les heures àl'heure de Munich (GMT + 2).",
+    },
+    alocaltime: {
+      en: '*All times in local time.',
+      de: '*Alle Uhrzeiten sind Deine lokale Zeiten.',
+      fr: '*Toutes les heures en heure locale.',
+    },
   },
 ];
 

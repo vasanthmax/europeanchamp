@@ -48,7 +48,7 @@ const Widget3 = () => {
 
   const [week, setWeek] = useState(
     new Date(
-      filteredData.length === 0 ? '' : filteredData[0]['start']
+      filteredData.length === 0 ? null : filteredData[0]['start']
     ).toLocaleString('UTC', {
       timeZone: 'CET',
       weekday: 'long',
@@ -368,6 +368,7 @@ const Widget3 = () => {
       }
     });
   };
+  console.log(week);
   return (
     <div className='widget3'>
       <div className='header'>
@@ -380,7 +381,9 @@ const Widget3 = () => {
           />
           <div className='previous-date'>
             <p className='day'>{fDate === 11 ? 21 : fDate - 1}</p>
-            <p className='month'>AUGUST</p>
+            <p className='month'>
+              {StaticArray[0]['August'][lang].toUpperCase()}
+            </p>
             <p className='mon'>AUG</p>
           </div>
           <img
@@ -391,19 +394,30 @@ const Widget3 = () => {
           />
           <div className='next-date'>
             <p className='day'>{fDate === 21 ? 11 : fDate + 1}</p>
-            <p className='month'>AUGUST</p>
+            <p className='month'>
+              {StaticArray[0]['August'][lang].toUpperCase()}
+            </p>
             <p className='mon'>AUG</p>
           </div>
           <div className='main-carousel'>
             <div className='date'>
-              <p className='weekday'>{week}</p>
+              <p className='weekday'>
+                {
+                  StaticArray[0][week === 'Invalid Date' ? 'Monday' : week][
+                    lang
+                  ]
+                }
+              </p>
+
               <p className='day'>{fDate}</p>
-              <p className='august'>AUGUST</p>
+              <p className='august'>
+                {StaticArray[0]['August'][lang].toUpperCase()}
+              </p>
             </div>
             <div className='sport'>
-              <h3>AUGUST</h3>
+              <h3>{StaticArray[0]['August'][lang].toUpperCase()}</h3>
               <p>
-                SPORTS:&nbsp;&nbsp;
+                {StaticArray[0]['Sports'][lang].toUpperCase()}:&nbsp;&nbsp;
                 <span>
                   {/* CYLCING BMX, CYCLING TRACK, ARTISTICS GYMNASTICS, ROWING,
                   SPORT CLIMBING, TABLE TENNIS, TRIATHLON */}
@@ -422,7 +436,11 @@ const Widget3 = () => {
             onChange={(e) => {
               setSport(e.value);
             }}
-            value={sport === 'No Filter Selected' ? 'SPORTS' : sport}
+            value={
+              sport === 'No Filter Selected'
+                ? `${StaticArray[0]['Sports'][lang].toUpperCase()}`
+                : sport
+            }
             placeholder='Select an option'
           />
           <Dropdown
@@ -430,7 +448,11 @@ const Widget3 = () => {
             onChange={(e) => {
               setGender(e.value);
             }}
-            value={gender === 'No Filter Selected' ? 'GENDER' : gender}
+            value={
+              gender === 'No Filter Selected'
+                ? `${StaticArray[0]['Gender'][lang].toUpperCase()}`
+                : gender
+            }
             placeholder='Select an option'
           />
           <Dropdown
@@ -438,14 +460,18 @@ const Widget3 = () => {
             onChange={(e) => {
               setMedal(e.value);
             }}
-            value={medal === 'No Filter Selected' ? 'MEDAL EVENT' : medal}
+            value={
+              medal === 'No Filter Selected'
+                ? `${StaticArray[0]['MedalEvent'][lang].toUpperCase()}`
+                : medal
+            }
             placeholder='Select an option'
           />
         </div>
         <hr />
         <div className='selected-filters'>
           <div className='filter'>
-            <p>Selected Filters:</p>
+            <p>{StaticArray[0]['SelectedFilters'][lang].toUpperCase()}:</p>
             {gender === 'No Filter Selected' ? (
               ''
             ) : (
@@ -459,7 +485,7 @@ const Widget3 = () => {
             ) : (
               <p>
                 <span onClick={() => setMedal('No Filter Selected')}>x</span>
-                {`MEDAL EVENT-${medal}`}
+                {`${StaticArray[0]['MedalEvent'][lang].toUpperCase()}-${medal}`}
               </p>
             )}
             {sport === 'No Filter Selected' ? (
@@ -479,31 +505,38 @@ const Widget3 = () => {
             }}
             style={{ cursor: 'pointer' }}
           >
-            Clear all
+            {StaticArray[0]['Clear'][lang]}
           </p>
         </div>
       </div>
       <div className='time-zone'>
         <p>
-          *All times in Munich time (GMT+2).{' '}
+          {`${
+            isClicked === 'clicked'
+              ? StaticArray[0]['alocaltime'][lang]
+              : StaticArray[0]['amunichtime'][lang]
+          }`}
           {isClicked === 'clicked' ? (
-            <span onClick={() => setIsClicked('')}>Show in Munich time</span>
+            <span onClick={() => setIsClicked('')}>
+              {StaticArray[0]['smunichtime'][lang]}
+            </span>
           ) : (
             <span onClick={() => setIsClicked('clicked')}>
-              Show in local time
+              {StaticArray[0]['slocaltime'][lang]}
             </span>
           )}
         </p>
       </div>
       <table className='date-event-table'>
         <thead>
-          <th>SPORT</th>
-          <th>EVENT NAME</th>
+          <th>{StaticArray[0]['Sports'][lang].toUpperCase()}</th>
+          <th>{StaticArray[0]['Eventname'][lang].toUpperCase()}</th>
           <th>TIME*</th>
-          <th>MEDAL</th>
-          <th>VENUE</th>
+          <th>{StaticArray[0]['Medal'][lang].toUpperCase()}</th>
+          <th>{StaticArray[0]['Venue'][lang].toUpperCase()}</th>
           <th className='addTo'>
-            ADD TO <img src={calendar} alt='' />
+            {StaticArray[0]['AddTo'][lang].toUpperCase()}{' '}
+            <img src={calendar} alt='' />
           </th>
         </thead>
         <tbody>
@@ -614,14 +647,18 @@ const Widget3 = () => {
       <table className='content-table-mobile'>
         <thead>
           <tr>
-            <th className='sport-event'>SPORT & EVENT NAME</th>
+            <th className='sport-event'>
+              {StaticArray[0]['Sports'][lang].toUpperCase()} &{' '}
+              {StaticArray[0]['Eventname'][lang].toUpperCase()}
+            </th>
           </tr>
           <tr>
             <th>TIME*</th>
-            <th>MEDAL</th>
-            <th>VENUE</th>
+            <th>{StaticArray[0]['Medal'][lang].toUpperCase()}</th>
+            <th>{StaticArray[0]['Venue'][lang].toUpperCase()}</th>
             <th className='addTo'>
-              ADD TO <img src={calendar} alt='' />
+              {StaticArray[0]['AddTo'][lang].toUpperCase()}
+              <img src={calendar} alt='' />
             </th>
           </tr>
         </thead>
@@ -629,22 +666,11 @@ const Widget3 = () => {
           {filteredData.map((ch) => {
             let SportName = ch.sport;
             let MedalEvent;
-            if (ch.sport === 'Canoe') {
-              SportName = 'canoesprint';
-            }
-            if (ch.sport === 'Volleyball') {
-              SportName = 'beachvolleyball';
-            }
-            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${SportName.split(
-              ' '
-            )
-              .join('')
-              .toLowerCase()}_dot_rgb.svg`;
-            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${SportName.split(
-              ' '
-            )
-              .join('')
-              .toLowerCase()}_medalicon_rgb.svg`;
+            let discipline = ch.discipline;
+            const sportIcon = ConstantSport(discipline);
+
+            const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${sportIcon}_dot_rgb.svg`;
+            const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${sportIcon}_medalicon_rgb.svg`;
 
             if (ch.medal == 'Yes') {
               MedalEvent = baseUrlMedal;
