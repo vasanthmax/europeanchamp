@@ -6,9 +6,11 @@ import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 import ConstantSport from '../constants/constantSport';
 import StaticArray from '../constants/staticWords';
+import Routing from '../constants/routing';
+import RoutingPath from '../constants/routingconstants';
 
 const Widget1 = () => {
-  const location = window.location.pathname.split('/').join('');
+  const location = window.location.pathname.split('/')[1];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(sportApi(location));
@@ -196,7 +198,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/11`}
+              to={`/${location}/date/11`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>11</h2>
@@ -205,7 +207,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/12`}
+              to={`/${location}/date/12`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>12</h2>
@@ -214,7 +216,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/13`}
+              to={`/${location}/date/13`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>13</h2>
@@ -223,7 +225,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/14`}
+              to={`/${location}/date/14`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>14</h2>
@@ -232,7 +234,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/15`}
+              to={`/${location}/date/15`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>15</h2>
@@ -241,7 +243,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/16`}
+              to={`/${location}/date/16`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>16</h2>
@@ -250,7 +252,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/17`}
+              to={`/${location}/date/17`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>17</h2>
@@ -259,7 +261,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/18`}
+              to={`/${location}/date/18`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>18</h2>
@@ -268,7 +270,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/19`}
+              to={`/${location}/date/19`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>19</h2>
@@ -278,7 +280,7 @@ const Widget1 = () => {
 
           <th>
             <Link
-              to={`${location}/date/20`}
+              to={`/${location}/date/20`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>20</h2>
@@ -287,7 +289,7 @@ const Widget1 = () => {
           </th>
           <th>
             <Link
-              to={`${location}/date/21`}
+              to={`/${location}/date/21`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               <h2>21</h2>
@@ -327,6 +329,7 @@ const Widget1 = () => {
                 items.push(<th></th>);
               }
             }
+            const discipline = Routing(ch.discipline);
             return (
               <tr>
                 <th className='sport'>
@@ -338,7 +341,7 @@ const Widget1 = () => {
                     //     ? 'beach-volleyball'
                     //     : ch.sport.toLowerCase().replace(' ', '-')
                     // }#widget-02`}
-                    href={`${location}/sport/${ch.discipline}`}
+                    href={`${location}/sport/${discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
@@ -353,13 +356,14 @@ const Widget1 = () => {
           })}
         </tbody>
       </table>
+
       <table className='content-table-mobile'>
         <thead>
           <th>{StaticArray[0]['Sport'][location].toUpperCase()}</th>
           <th>{StaticArray[0]['Venue'][location].toUpperCase()}</th>
           <th className='date'>
             <Link
-              to={`${location}/date/${date}`}
+              to={`/${location}/date/${date}`}
               style={{ textDecoration: 'none', color: '#ffffff' }}
             >
               {date} AUG
@@ -369,7 +373,7 @@ const Widget1 = () => {
         <tbody>
           {filtered.map((vs) => {
             let sport = vs.discipline;
-
+            let discipline = Routing(vs.discipline);
             const MedalIcon = ConstantSport(sport);
             console.log(`Medal ${MedalIcon}`);
             const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${MedalIcon}_dot_rgb.svg`;
@@ -386,7 +390,8 @@ const Widget1 = () => {
                     //     ? 'beach-volleyball'
                     //     : vs.sport.toLowerCase().replace(' ', '-')
                     // }#widget-02`}
-                    href={`${location}/sport/${vs.discipline}`}
+
+                    href={`${location}/sport/${discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >

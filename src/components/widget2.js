@@ -6,11 +6,12 @@ import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 import ConstantSport from '../constants/constantSport';
 import StaticArray from '../constants/staticWords';
+import Routing from '../constants/routing';
+import RoutingPath from '../constants/routingconstants';
 
 const Widget2 = () => {
   const dispatch = useDispatch();
   const lang = window.location.pathname.split('/')[1];
-  console.log(lang);
   useEffect(() => {
     console.log('...loding');
     dispatch(sportApi(lang));
@@ -18,15 +19,19 @@ const Widget2 = () => {
   const data = useSelector((state) => state.sportReducer.sport);
 
   console.log(data);
-  let sport = decodeURIComponent(
-    window.location.pathname.split('/').pop().split('%20').join(' ')
-  );
+  let URLSport = window.location.pathname.split('/').pop();
+  let sport = RoutingPath[0][URLSport][lang];
+  console.log(sport);
 
-  let sportanotherValue = decodeURIComponent(
-    window.location.pathname.split('/').pop().split('%20').join(' ')
-  );
-
-  const sportIcons = ConstantSport(sportanotherValue);
+  let sportIcons = window.location.pathname.split('/').pop();
+  if (
+    sportIcons == 'cyclingmountainbike' ||
+    sportIcons == 'cyclingbmxfreestyle' ||
+    sportIcons == 'cyclingroad' ||
+    sportIcons == 'cyclingtrack'
+  ) {
+    sportIcons = 'cycling';
+  }
   const filteredValues = data.filter((ch) => ch.discipline === sport);
 
   const [filteredData, setFilteredData] = useState(filteredValues);
@@ -49,7 +54,7 @@ const Widget2 = () => {
     rowing: '#00B2A9',
     sportclimbing: '#E71D73',
     tabletennis: '#1D71B8',
-    Triathlon: '#FECB00',
+    triathlon: '#FECB00',
   };
 
   for (let i = 0; i < filteredData.length; i++) {
@@ -400,7 +405,7 @@ const Widget2 = () => {
                 </th>
                 <th className='date'>
                   <Link
-                    to={`/date/${date}`}
+                    to={`/${lang}/date/${date}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                   >
                     {`${StaticArray[0][weekday][lang]} `}
