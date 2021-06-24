@@ -9,6 +9,9 @@ import { createEvent } from 'ics';
 import ConstantSport from '../constants/constantSport';
 import StaticArray from '../constants/staticWords';
 import Routing from '../constants/routing';
+import ReactGa from 'react-ga';
+
+ReactGa.initialize('UA-76564619-3');
 const Widget3 = () => {
   const calendar =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/PNG/calendar.png';
@@ -348,6 +351,7 @@ const Widget3 = () => {
       description: `${discipline} - ${event.split('&#039;').join("'")}`,
       location: venue,
     };
+    console.log(eventCalen);
     createEvent(eventCalen, (error, value) => {
       if (error) {
         console.log(error);
@@ -455,15 +459,15 @@ const Widget3 = () => {
           <Dropdown
             options={dropdown2}
             onChange={(e) => {
-              if (e.value == 'ALLES' || e.value == 'TOUS' || e.value == 'All') {
+              if (e.value == 'Alles' || e.value == 'Tous' || e.value == 'All') {
                 setMedal('All');
                 setMedalValue(e.value);
               }
-              if (e.value == 'Yes' || e.value == 'OUI' || e.value == 'JA') {
+              if (e.value == 'Yes' || e.value == 'Oui' || e.value == 'Ja') {
                 setMedal('Yes');
                 setMedalValue(e.value);
               }
-              if (e.value == 'No' || e.value == 'NON' || e.value == 'NEIN') {
+              if (e.value == 'No' || e.value == 'Non' || e.value == 'Nein') {
                 setMedal('No');
                 setMedalValue(e.value);
               }
@@ -546,9 +550,9 @@ const Widget3 = () => {
       </div>
       <table className='date-event-table'>
         <thead>
-          <th>{StaticArray[0]['Sports'][lang].toUpperCase()}</th>
+          <th>{StaticArray[0]['Sport'][lang].toUpperCase()}</th>
           <th>{StaticArray[0]['Eventname'][lang].toUpperCase()}</th>
-          <th>TIME*</th>
+          <th>{StaticArray[0]['time'][lang]}</th>
           <th>{StaticArray[0]['Medal'][lang].toUpperCase()}</th>
           <th>{StaticArray[0]['Venue'][lang].toUpperCase()}</th>
           <th className='addTo'>
@@ -655,6 +659,10 @@ const Widget3 = () => {
                         ch.day,
                         ch.medal
                       );
+                      ReactGa.event({
+                        category: 'SPW3',
+                        action: 'Add to Calendar',
+                      });
                     }}
                   />
                 </th>
@@ -667,12 +675,12 @@ const Widget3 = () => {
         <thead>
           <tr>
             <th className='sport-event'>
-              {StaticArray[0]['Sports'][lang].toUpperCase()} &{' '}
+              {StaticArray[0]['Sport'][lang].toUpperCase()} &{' '}
               {StaticArray[0]['Eventname'][lang].toUpperCase()}
             </th>
           </tr>
           <tr>
-            <th>TIME*</th>
+            <th>{StaticArray[0]['time'][lang]}</th>
             <th>{StaticArray[0]['Medal'][lang].toUpperCase()}</th>
             <th>{StaticArray[0]['Venue'][lang].toUpperCase()}</th>
             <th className='addTo'>
@@ -784,6 +792,10 @@ const Widget3 = () => {
                           ch.day,
                           ch.medal
                         );
+                        ReactGa.event({
+                          category: 'SPW3',
+                          action: 'Add to Calendar',
+                        });
                       }}
                     />
                   </th>

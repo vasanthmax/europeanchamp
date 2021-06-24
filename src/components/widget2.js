@@ -181,15 +181,15 @@ const Widget2 = () => {
           <Dropdown
             options={dropdown2}
             onChange={(e) => {
-              if (e.value == 'ALLES' || e.value == 'TOUS' || e.value == 'All') {
+              if (e.value == 'Alles' || e.value == 'Tous' || e.value == 'All') {
                 setMedal('All');
                 setMedalValue(e.value);
               }
-              if (e.value == 'Yes' || e.value == 'OUI' || e.value == 'JA') {
+              if (e.value == 'Yes' || e.value == 'Oui' || e.value == 'Ja') {
                 setMedal('Yes');
                 setMedalValue(e.value);
               }
-              if (e.value == 'No' || e.value == 'NON' || e.value == 'NEIN') {
+              if (e.value == 'No' || e.value == 'Non' || e.value == 'Nein') {
                 setMedal('No');
                 setMedalValue(e.value);
               }

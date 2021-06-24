@@ -159,6 +159,9 @@ const Widget1 = () => {
       });
     }
   }
+  sportDis.sort(function (a, b) {
+    return a.discipline.localeCompare(b.discipline);
+  });
 
   return (
     <div className='widget1'>
