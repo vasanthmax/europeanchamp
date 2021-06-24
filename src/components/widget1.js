@@ -8,6 +8,7 @@ import ConstantSport from '../constants/constantSport';
 import StaticArray from '../constants/staticWords';
 import Routing from '../constants/routing';
 import RoutingPath from '../constants/routingconstants';
+import AlignOrder from '../constants/alignOrder';
 
 const Widget1 = () => {
   const location = window.location.pathname.split('/')[1];
@@ -45,6 +46,7 @@ const Widget1 = () => {
         ) === -1
       ) {
         sportDis.push({
+          id: AlignOrder(discipline),
           sport: sport,
           discipline: discipline,
           venue: venue,
@@ -152,6 +154,7 @@ const Widget1 = () => {
         (ch) => ch.date === date.toString()
       );
       filtered.push({
+        id: AlignOrder(discipline),
         sport: sport,
         discipline: discipline,
         venue: venue,
@@ -160,9 +163,12 @@ const Widget1 = () => {
     }
   }
   sportDis.sort(function (a, b) {
-    return a.discipline.localeCompare(b.discipline);
+    return a.id - b.id;
   });
 
+  filtered.sort(function (a, b) {
+    return a.id - b.id;
+  });
   return (
     <div className='widget1'>
       <div className='month'>
