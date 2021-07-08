@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className='App'>
-      <BrowserRouter>
+      <BrowserRouter basename='/spw1'>
         <Switch>
           <Route path='/:id' component={Widget1} exact />
           <Route path='/:id/sport/:id' component={Widget2} />

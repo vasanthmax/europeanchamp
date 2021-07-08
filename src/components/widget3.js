@@ -7,6 +7,7 @@ import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
 import { createEvent } from 'ics';
 import ConstantSport from '../constants/constantSport';
+import ConstantEuroSport from '../constants/euroRoute';
 import StaticArray from '../constants/staticWords';
 import Routing from '../constants/routing';
 import ReactGa from 'react-ga';
@@ -588,17 +589,14 @@ const Widget3 = () => {
               };
               showInMunichTime();
               const disciplineRoute = Routing(ch.discipline);
+              const eurosport = ConstantEuroSport(ch.discipline);
               return (
                 <tr>
                   <th className='sport'>
                     {' '}
                     <a
-                      // href={`https://www.europeanchampionships.com/${
-                      //   ch.sport === 'Canoe'
-                      //     ? 'canoe-sprint'
-                      //     : ch.sport.toLowerCase().replace(' ', '-')
-                      // }#widget-02`}
-                      href={`/${lang}/sport/${disciplineRoute}`}
+                      href={`https://www.europeanchampionships.com/${eurosport}#widget-02`}
+                      // href={`/${lang}/sport/${disciplineRoute}`}
                       style={{ textDecoration: 'none', color: '#1c0e52' }}
                       target='_top'
                     >
@@ -725,17 +723,15 @@ const Widget3 = () => {
               };
               showInMunichTime();
               const disciplineRoute = Routing(ch.discipline);
+              const eurosport = ConstantEuroSport(ch.discipline);
+
               return (
                 <div className='table-row'>
                   <tr>
                     <th className='event'>
                       <a
-                        // href={`https://www.europeanchampionships.com/${
-                        //   ch.sport === 'Canoe'
-                        //     ? 'canoe-sprint'
-                        //     : ch.sport.toLowerCase().replace(' ', '-')
-                        // }#widget-02`}
-                        href={`/${lang}/sport/${disciplineRoute}`}
+                        href={`https://www.europeanchampionships.com/${eurosport}#widget-02`}
+                        // href={`/${lang}/sport/${disciplineRoute}`}
                         style={{ textDecoration: 'none', color: '#1c0e52' }}
                         target='_top'
                       >

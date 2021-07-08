@@ -9,6 +9,7 @@ import StaticArray from '../constants/staticWords';
 import Routing from '../constants/routing';
 import RoutingPath from '../constants/routingconstants';
 import AlignOrder from '../constants/alignOrder';
+import ConstantEuroSport from '../constants/euroRoute';
 
 const Widget1 = () => {
   const location = window.location.pathname.split('/')[1];
@@ -339,18 +340,13 @@ const Widget1 = () => {
               }
             }
             const discipline = Routing(ch.discipline);
+            const eurosport = ConstantEuroSport(ch.discipline);
             return (
               <tr>
                 <th className='sport'>
                   <a
-                    // href={`https://www.europeanchampionships.com/${
-                    //   ch.sport === 'Canoe'
-                    //     ? 'canoe-sprint'
-                    //     : ch.sport === 'Volleyball'
-                    //     ? 'beach-volleyball'
-                    //     : ch.sport.toLowerCase().replace(' ', '-')
-                    // }#widget-02`}
-                    href={`${location}/sport/${discipline}`}
+                    href={`https://www.europeanchampionships.com/${eurosport}#widget-02`}
+                    // href={`${location}/sport/${discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
@@ -387,20 +383,14 @@ const Widget1 = () => {
             console.log(`Medal ${MedalIcon}`);
             const baseUrlDot = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Dots/SVG/ec_${MedalIcon}_dot_rgb.svg`;
             const baseUrlMedal = `https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Medals/SVG/ec_${MedalIcon}_medalicon_rgb.svg`;
+            const eurosport = ConstantEuroSport(vs.discipline);
 
             return (
               <tr>
                 <th className='event'>
                   <a
-                    // href={`https://www.europeanchampionships.com/${
-                    //   vs.sport === 'Canoe'
-                    //     ? 'canoe-sprint'
-                    //     : vs.sport === 'Volleyball'
-                    //     ? 'beach-volleyball'
-                    //     : vs.sport.toLowerCase().replace(' ', '-')
-                    // }#widget-02`}
-
-                    href={`${location}/sport/${discipline}`}
+                    href={`https://www.europeanchampionships.com/${eurosport}#widget-02`}
+                    // href={`${location}/sport/${discipline}`}
                     style={{ textDecoration: 'none', color: '#1c0e52' }}
                     target='_top'
                   >
