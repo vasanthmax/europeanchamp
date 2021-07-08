@@ -24,7 +24,7 @@ const Widget3 = () => {
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_right.svg';
   const leftArrow =
     'https://ecm-ecmdotcom.s3.eu-west-1.amazonaws.com/SPW/Other_elements/SVG/chevron_left.svg';
-  const lang = window.location.pathname.split('/')[1];
+  const lang = window.location.pathname.split('/')[2];
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -11,7 +11,7 @@ import RoutingPath from '../constants/routingconstants';
 
 const Widget2 = () => {
   const dispatch = useDispatch();
-  const lang = window.location.pathname.split('/')[1];
+  const lang = window.location.pathname.split('/')[2];
   useEffect(() => {
     console.log('...loding');
     dispatch(sportApi(lang));

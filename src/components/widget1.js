@@ -12,7 +12,7 @@ import AlignOrder from '../constants/alignOrder';
 import ConstantEuroSport from '../constants/euroRoute';
 
 const Widget1 = () => {
-  const location = window.location.pathname.split('/')[1];
+  const location = window.location.pathname.split('/').pop();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(sportApi(location));
